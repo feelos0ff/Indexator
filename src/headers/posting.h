@@ -37,6 +37,8 @@ class PostFromDump : public BasePost{
 	unsigned long _countEnt;
 	unsigned long long _pointEnt;
 
+	FileWork _fw;
+
 public:
 	list<int>* GetEntrance();
 	void Dump(string);
@@ -48,7 +50,7 @@ class PostingList{
 	map<unsigned long ,pair<unsigned long, pair<unsigned long long, BasePost*> > > _posts;
 
 	list<unsigned long> _docId;
-
+	FileWork _fw;
 public:
 
 	PostingList();

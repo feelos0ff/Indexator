@@ -87,7 +87,7 @@ void Index::Merge(string fileName){
             _fw.WriteLine(currentLine.first,pos);
 
             currentLine = targetLine;
-            currentPosts.Load(currentLine.second);
+            currentPosts.Load(currentLine.second, "index_tmp.idx");
        }
     }
 

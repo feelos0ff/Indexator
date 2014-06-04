@@ -7,27 +7,65 @@
 #include "../headers/posting.h"
 
 
-	PostingList();
-	~PostingList();
+PostingList::PostingList(){}
+PostingList::~PostingList(){}
 
 void Add(unsigned long, list<int>&){
 	Post *newPost = new Post();
 
 }
 
-	void Merge(unsigned long long);				///< слияние текущего и заданного смещением
-	void Merge(PostingList*);					///< слияние текущего и заданного указателем
+void PostingList::Merge(unsigned long long);				///< слияние текущего и заданного смещением
+void PostingList::Merge(PostingList*);					///< слияние текущего и заданного указателем
 
-	unsigned long long Dump(string);			///< запись в файл
+unsigned long long PostingList::Dump(string){
 
-	void UpToRAM(unsigned long);				///< загрузка из файла списка фхождений
+}
+/// ?????
+void PostingList::UpToRAM(unsigned long){}				///< загрузка из файла списка фхождений
+///
+unsigned long PostingList::Length(){
+		return _docId.size();
+}
+unsigned long PostingList::LengthEnt(unsigned long docId){
+	return _posts[docId].first;
+}
 
-	unsigned long Length();						///< количество файлов в постинглисте
-	unsigned long LengthEnt(unsigned long);		///< количество вхождений в данный файл
+void PostingList::Load(unsigned long long pos, string fName){
+	_fw.CloseRead();
+	_fw.OpenRead(fName);
+	Load(pos);
+}
+void PostingList::Load(unsigned long long pos){
+	string data = _fw.ReadIdxLine(pos);
 
-	void Load(unsigned long long, string);		///< загрузка постинглиста из файла
-	void Load(unsigned long long);				///< загрузка постинглиста изуже открытого файла
+	list<unsigned long long> *rawPost = Archivate::Encode(data);
+	list<unsigned long long>::iterator iter = rawPost->begin();
 
+	unsigned long docId = 0;
+	pair<unsigned long, pair<unsigned long long, BasePost*> >  entrance;
+
+	for(int i = 0; iter != rawPost->end(); iter++, i = (i + 1) %3){
+		switch (i){
+			case 0:
+				docId += *iter;
+				break;
+
+			case 1:
+				entrance.first = *iter;
+				break;
+
+			case 2:
+				entrance.second.first += *iter;
+				entrance.second.second = NULL;
+
+				_posts[docId] = entrance;
+				_docId.push_back(docId);
+		}
+	}
+
+	delete rawPost;
+}
 bool PostingList::IsExist(unsigned long docId){
 
 	if(_posts.end() ==  _posts.find(docId))

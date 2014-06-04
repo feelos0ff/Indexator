@@ -11,7 +11,7 @@ public:
     bool IsEOF();
 
     unsigned int GetPos();
-    void SetPos(unsigned int );
+    void SetPos(unsigned long long);
 
     void CloseRead();
     void CloseWrite();
@@ -20,7 +20,7 @@ public:
     pair<string, unsigned int> ReadLine();
 
     void WriteIdxLine(string);
-    string ReadIdxLine(unsigned int);
+    string ReadIdxLine(unsigned long long);
 
 
 };
