@@ -63,10 +63,10 @@ public:
 
 	void UpToRAM(unsigned long);							///< загрузка из файла списка фхождений
 
-	unsigned long Length();								///< количество файлов в постинглисте
+	unsigned long Length();									///< количество файлов в постинглисте
 	unsigned long LengthEnt(unsigned long);					///< количество вхождений в данный файл
 
-	void Load(unsigned long long, string);						///< загрузка постинглиста из файла
+	void Load(unsigned long long, string);					///< загрузка постинглиста из файла
 	void Load(unsigned long long);							///< загрузка постинглиста изуже открытого файла
 
 	bool IsExist(unsigned long);							///< проверка на вхождение заданного документа
