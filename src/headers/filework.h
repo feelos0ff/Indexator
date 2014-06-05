@@ -16,8 +16,8 @@ public:
     void CloseRead();
     void CloseWrite();
 
-    void WriteLine(string, unsigned int);
-    pair<string, unsigned int> ReadLine();
+    void WriteLine(string, unsigned long long);
+    pair<string, unsigned long long> ReadLine();
 
     void WriteIdxLine(string&);
     string ReadIdxLine(unsigned long long);

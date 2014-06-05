@@ -32,4 +32,47 @@ unsigned long Statistics::GetCountTxt(){
 unsigned long Statistics::GetTxtLen(unsigned long txtNum){
 	return _txtDict[txtNum];
 }
+void Statistics::SetStopLine(double eps){
+	if(eps <= 1)
+		_stopLine = eps;
+}
+
+void Statistics::Dump(string fileName){
+	FileWork fw;
+	fw.OpenWrite(fileName);
+
+	map <string, unsigned long>::iterator wordIter = _wordDict.begin();
+	map <unsigned long, unsigned long>::iterator txtIter = _txtDict.begin();
+	///< toDo исправить на нормальную запись в файл
+	fw.WriteLine(Parser::UITS(_wordDict.size()),_txtDict.size());
+
+	for(;wordIter != _wordDict.end(); wordIter++)
+		fw.WriteLine(wordIter->first, wordIter->second);
+
+	for(;txtIter != _txtDict.end(); txtIter++)
+		fw.WriteLine(Parser::UITS(txtIter->first), txtIter->second);
+
+	fw.CloseWrite();
+}
+
+void Statistics::Load(string fileName){
+	FileWork fw;
+	///< toDo исправить на нормальную запись в файл
+	pair<string, unsigned long> data;
+
+	data = fw.ReadLine();
+
+	unsigned long wordLen = Parser::STUI(data.first);
+	unsigned long txtLen = data.second;
+
+	for(;wordLen; wordLen--){
+		data =fw.ReadLine();
+		_wordDict.insert(data);
+		_wc += data.second;
+	}
+	for(;txtLen; txtLen++){
+		data =fw.ReadLine();
+		_txtDict[Parser::STUI(data.first)] = data.second;
+	}
+}
 

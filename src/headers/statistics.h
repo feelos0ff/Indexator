@@ -8,6 +8,8 @@
 #ifndef STATISTICS_H_
 #define STATISTICS_H_
 #include "definesincludes.h"
+#include "parser.h"
+#include "filework.h"
 
 class Statistics{
 
@@ -21,6 +23,11 @@ class Statistics{
 public:
 
 	Statistics(double stopLine = 0.85): _stopLine(stopLine), _wc(0){}
+
+	void SetStopLine(double);
+
+	void Dump(string);
+	void Load(string);
 
 	void AddWord(string, unsigned long);
 

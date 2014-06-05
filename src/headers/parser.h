@@ -13,6 +13,9 @@ public:
     static vector<string> NormalizeText(string);
     static vector<string> NormalizeMeta(string);
 
+    static string UITS(unsigned long);
+    static unsigned long STUI(string);
+
 };
 
 #endif // PARSER_H
