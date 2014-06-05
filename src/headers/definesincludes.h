@@ -14,6 +14,10 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <postgresql/libpq-fe.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 using namespace std;
 

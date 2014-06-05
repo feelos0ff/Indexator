@@ -12,13 +12,22 @@
 
 class DBWorker{
 
+	PGconn *_conn;
+
+	string Select(string, unsigned int);
+
 public:
-	string GetNewsText(int);
-    string GetPrepText(int);
-    string GetMetaData(int);
+
+	DBWorker();
+	~DBWorker();
+
+	string GetNewsText(unsigned int);
+    string GetPrepText(unsigned int);
+    string GetMetaData(unsigned int);
+
     unsigned long GetCountTxt();				///< количество текстов
 
-    void SetPrepText(vector<string>&);
+    void SetPrepText(vector<string>&, unsigned int);
 };
 
 

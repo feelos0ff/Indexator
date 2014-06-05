@@ -44,7 +44,7 @@ void Index::AddToIndex(int stIdx, int endIdx){
             _stat.AddWord(processedText[wordNum], txtNum);
         }
 
-        _db.SetPrepText(processedText);
+        _db.SetPrepText(processedText, txtNum);
     }
     map<string, map<unsigned int,list<int> > >::iterator wordIter = dictionary.begin();
     unsigned long long pos = 0;
