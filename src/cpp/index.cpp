@@ -11,17 +11,14 @@ void Index::CreateIndex(int stIdx, int endIdx){
     system("rm *_tmp.dict");
 
     Merge("dict.dict");
+    _stat.Dump("index.stat");
 }
 
 
 void Index::AddToIndex(int stIdx, int endIdx){
     FileWork fwIdx;
 
-    stringstream ss;
-    string fileName;
-
-    ss << stIdx;
-    ss >> fileName;
+    string fileName = Parser::UITS(stIdx);
 
     _fw.OpenWrite(fileName + "_tmp.dict");
     map<string, map<unsigned int,list<int> > > dictionary;
@@ -32,8 +29,10 @@ void Index::AddToIndex(int stIdx, int endIdx){
         vector<string> processedText = Parser::NormalizeMeta(_db.GetMetaData(txtNum));
         int len = processedText.size();
 
-        for(int wordNum = 0; wordNum < len; ++wordNum)
+        for(int wordNum = 0; wordNum < len; ++wordNum){
             dictionary[ processedText[wordNum] ][txtNum].push_back(-1);
+            _stat.AddWord(processedText[wordNum], txtNum);
+        }
 
         processedText = Parser::NormalizeText(_db.GetNewsText(txtNum));
         int len = processedText.size();
@@ -41,6 +40,8 @@ void Index::AddToIndex(int stIdx, int endIdx){
         for(int wordNum = 0; wordNum < len; ++wordNum){
         	dictionary[ processedText[wordNum] ][txtNum].push_back(pos);
             pos += processedText[wordNum].length() + 1;
+
+            _stat.AddWord(processedText[wordNum], txtNum);
         }
 
         _db.SetPrepText(processedText);
@@ -101,10 +102,13 @@ void Index::Merge(string fileName){
 
 
 void IndexTable::LoadIndex(string fileName){
-    FileWork fw;
+	_stat.Load("index.stat");
+	FileWork fw;
     fw.OpenRead(fileName);
     while(!fw.IsEOF())
         _tbl.insert(fw.ReadLine());
+
+    fw.CloseRead();
 }
 
 

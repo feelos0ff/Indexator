@@ -15,6 +15,8 @@ class Index{
     DBWorker _db;
     map<string, PostingList > _dictionary;
 
+    Statistics _stat;
+
     int _maxCountOfText;
 public:
 
@@ -28,6 +30,7 @@ public:
 class IndexTable{
 
     map<string, unsigned long long> _tbl;
+    Statistics _stat;
 
 public:
 

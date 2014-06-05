@@ -3,6 +3,10 @@
 #include "definesincludes.h"
 
 class FileWork{
+
+	ifstream _fin;
+	ofstream _fout;
+
 public:
 
     void OpenRead(string);
@@ -21,8 +25,6 @@ public:
 
     void WriteIdxLine(string&);
     string ReadIdxLine(unsigned long long);
-
-
 };
 
 #endif // FILEWORK_H

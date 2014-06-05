@@ -42,6 +42,8 @@ class PostFromDump : public BasePost{
 	FileWork _fw;
 
 public:
+	bool OnDisck();
+
 	list<int>* GetEntrance();
 	unsigned long long Dump(string);
 };
