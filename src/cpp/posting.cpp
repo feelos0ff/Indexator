@@ -6,8 +6,8 @@
  */
 #include "../headers/posting.h"
 
-
 PostingList::PostingList(){}
+
 PostingList::~PostingList(){
 	map<unsigned long ,pair<unsigned long,
 						   pair<unsigned long long, BasePost*> > >::iterator iter = _posts.begin();
