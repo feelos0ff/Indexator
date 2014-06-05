@@ -15,4 +15,5 @@ PostingList* Ranking::CuttingList(vector<string> &query, IndexTable *idx){
 		double idf = _db.GetCountTxt() / (double)tmp->Length();
 
 	}*/
+	return NULL;
 }

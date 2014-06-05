@@ -16,8 +16,9 @@ class BasePost{
 public:
 	virtual ~BasePost(){}
 
+	virtual bool OnDisck() = 0;
 	virtual list<int>* GetEntrance() = 0;
-	virtual void Dump(string) = 0;
+	virtual unsigned long long Dump(string) = 0;
 };
 
 
@@ -27,9 +28,10 @@ class Post : public BasePost{
 public:
 
 	void SetEntrance(list<int>&);
+	bool OnDisck();
 
 	list<int>* GetEntrance();
-	void Dump(string);
+	unsigned long long Dump(string);
 };
 
 
@@ -41,7 +43,7 @@ class PostFromDump : public BasePost{
 
 public:
 	list<int>* GetEntrance();
-	void Dump(string);
+	unsigned long long Dump(string);
 };
 
 
@@ -58,12 +60,12 @@ public:
 
 	void Add(unsigned long, list<int>&);					///< добавление документа к текущему постинглисту
 
-	void Merge(unsigned long long);							///< слияние текущего и заданного смещением
+	void Merge(unsigned long long, string);							///< слияние текущего и заданного смещением
 	void Merge(PostingList*);								///< слияние текущего и заданного указателем
 
 	unsigned long long Dump(string);						///< запись в файл
 
-	void UpToRAM(unsigned long);							///< загрузка из файла списка фхождений
+//	void UpToRAM(unsigned long);							///< загрузка из файла списка фхождений
 
 	unsigned long Length();								///< количество файлов в постинглисте
 	unsigned long LengthEnt(unsigned long);					///< количество вхождений в данный файл

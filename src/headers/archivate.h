@@ -4,7 +4,7 @@
 
 class Archivate{
 public:
-    static list<unsigned long long>* Encode(string);
+    static list<unsigned long long>* Encode(string&);
     static string Decode(list<unsigned long long>&);
 };
 

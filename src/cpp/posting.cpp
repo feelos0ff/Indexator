@@ -8,22 +8,90 @@
 
 
 PostingList::PostingList(){}
-PostingList::~PostingList(){}
+PostingList::~PostingList(){
+	map<unsigned long ,pair<unsigned long,
+						   pair<unsigned long long, BasePost*> > >::iterator iter = _posts.begin();
 
-void Add(unsigned long, list<int>&){
+	for(;iter !=  _posts.end(); iter++){
+		if(iter->second.second.second)
+			delete iter->second.second.second;
+	}
+}
+
+void PostingList::Add(unsigned long docId, list<int>& ent){
 	Post *newPost = new Post();
+	newPost->SetEntrance(ent);
 
+	_docId.push_back(docId);
+	pair<unsigned long, pair<unsigned long long, BasePost*> >  entrance;
+
+	entrance.first = ent.size();
+	entrance.second.first = 0;
+	entrance.second.second = newPost;
+
+	_posts = entrance;
 }
 
-void PostingList::Merge(unsigned long long);				///< слияние текущего и заданного смещением
-void PostingList::Merge(PostingList*);					///< слияние текущего и заданного указателем
+void PostingList::Merge(unsigned long long pos, string fileName){
+	PostingList * newPosting = new PostingList();
 
-unsigned long long PostingList::Dump(string){
+	newPosting->Load(pos, fileName);
+	Merge(newPosting);
 
+	delete newPosting;
 }
-/// ?????
-void PostingList::UpToRAM(unsigned long){}				///< загрузка из файла списка фхождений
-///
+void PostingList::Merge(PostingList *secondPost){
+	map<unsigned long ,pair<unsigned long,
+					   pair<unsigned long long, BasePost*> > >::iterator iter = secondPost->_posts.begin();
+
+	for(; iter != secondPost->_posts.end(); iter++){
+		_posts[iter->first] = iter->second;
+		_docId.push_back(iter->first);
+	}
+}
+
+unsigned long long PostingList::Dump(string fileName){
+	_fw.OpenWrite(fileName, true);
+	unsigned long long pos = _fw.GetPos();
+
+	list<unsigned long long> dataForArchivate;
+	map<unsigned long ,pair<unsigned long,
+					   pair<unsigned long long, BasePost*> > >::iterator iter = _posts.begin();
+
+	unsigned long long lastDocId = 0;
+	unsigned long long lastPointEnt = 0;
+
+	for(int i = 0; iter != _posts.end(); iter++, i = (i + 1) %3){
+		unsigned long long data = 0;
+
+		switch(i){
+			case 0:
+				data = iter->first - lastDocId;
+				lastDocId = iter->first;
+				break;
+
+			case 1:
+				data = iter->second.first;
+				break;
+
+			case 2:
+				if(!iter->second.second.second->OnDisck())
+					iter->second.second.first = iter->second.second.second->Dump("all.ent");
+
+				data = iter->second.second.first - lastPointEnt;
+				break;
+		}
+		dataForArchivate.push_back(data);
+	}
+
+	string results = Archivate::Decode(dataForArchivate);
+	_fw.WriteIdxLine(results);
+	pos = _fw.GetPos() - pos;
+	_fw.CloseWrite();
+
+	return pos;
+}
+
 unsigned long PostingList::Length(){
 		return _docId.size();
 }
@@ -32,9 +100,9 @@ unsigned long PostingList::LengthEnt(unsigned long docId){
 }
 
 void PostingList::Load(unsigned long long pos, string fName){
-	_fw.CloseRead();
 	_fw.OpenRead(fName);
 	Load(pos);
+	_fw.CloseRead();
 }
 void PostingList::Load(unsigned long long pos){
 	string data = _fw.ReadIdxLine(pos);

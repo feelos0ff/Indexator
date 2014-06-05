@@ -80,19 +80,18 @@ void Index::Merge(string fileName){
         pair<string, unsigned int> targetLine = _fw.ReadLine();
 
         if(currentLine.first == targetLine.first)
-        	currentPosts.Merge(targetLine.second);
+        	currentPosts.Merge(targetLine.second, "index_tmp.idx");
 
         else{
+        	_fw.WriteLine(currentLine.first,pos);
         	pos += currentPosts.Dump("index.idx");
-            _fw.WriteLine(currentLine.first,pos);
 
             currentLine = targetLine;
             currentPosts.Load(currentLine.second, "index_tmp.idx");
        }
     }
-
-	pos += currentPosts.Dump("index.idx");
     _fw.WriteLine(currentLine.first,pos);
+	pos += currentPosts.Dump("index.idx");
 
     _fw.CloseRead();
     _fw.CloseWrite();
