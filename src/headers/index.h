@@ -2,7 +2,6 @@
 #define INDEX_H
 
 #include "parser.h"
-#include "ranking.h"
 #include "filework.h"
 #include "archivate.h"
 #include "posting.h"

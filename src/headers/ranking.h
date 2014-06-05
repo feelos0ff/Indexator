@@ -4,7 +4,7 @@
 #include "definesincludes.h"
 #include "posting.h"
 #include "index.h"
-
+#include "dbworker.h"
 
 class Ranking{
 	unsigned long _maxRank;

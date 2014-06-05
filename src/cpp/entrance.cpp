@@ -8,7 +8,7 @@
 #include "../headers/posting.h"
 
 void Post::SetEntrance(list<int> &src){
-	_entrance.list = src;
+	_entrance = src;
 }
 
 bool Post::OnDisck(){
@@ -25,7 +25,7 @@ bool PostFromDump::OnDisck(){ return true; }
 
 ///< toDo реализовать
 list<int>* PostFromDump::GetEntrance(){
-	return true;
+	return NULL;
 }
 unsigned long long PostFromDump::Dump(string){
 	return 0;

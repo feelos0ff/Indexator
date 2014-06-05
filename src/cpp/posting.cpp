@@ -29,7 +29,7 @@ void PostingList::Add(unsigned long docId, list<int>& ent){
 	entrance.second.first = 0;
 	entrance.second.second = newPost;
 
-	_posts = entrance;
+	_posts[docId] = entrance;
 }
 
 void PostingList::Merge(unsigned long long pos, string fileName){

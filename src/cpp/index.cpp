@@ -35,7 +35,7 @@ void Index::AddToIndex(int stIdx, int endIdx){
         }
 
         processedText = Parser::NormalizeText(_db.GetNewsText(txtNum));
-        int len = processedText.size();
+        len = processedText.size();
 
         for(int wordNum = 0; wordNum < len; ++wordNum){
         	dictionary[ processedText[wordNum] ][txtNum].push_back(pos);
@@ -56,7 +56,7 @@ void Index::AddToIndex(int stIdx, int endIdx){
     	for(;docIter != wordIter->second.end(); docIter++)
     		posts.Add(docIter->first, docIter->second);
 
-    	pos += posts.Dump("index" + "_tmp.idx");
+    	pos += posts.Dump("index_tmp.idx");
     	_fw.WriteLine(wordIter->first, pos);
     }
 

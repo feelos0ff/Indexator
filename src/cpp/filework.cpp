@@ -12,7 +12,7 @@ void FileWork::OpenRead(string fileName){
 	_fin.open(fileName.c_str(), ios::binary);
 }
 
-void FileWork::OpenWrite(string fileName, bool append = false){
+void FileWork::OpenWrite(string fileName, bool append){
 	if(append)
 		_fout.open(fileName.c_str(), ios::app | ios::binary);
 	else

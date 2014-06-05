@@ -5,6 +5,7 @@
  *      Author: feelosoff
  */
 
+#include "../headers/dbworker.h"
 using namespace std;
 
 DBWorker::DBWorker(){
@@ -39,7 +40,7 @@ string DBWorker::Select(string col, unsigned int num){
 	return result;
 }
 
-string DBWorker::GetNewsText(int num){
+string DBWorker::GetNewsText(unsigned int num){
 	return Select("news_text", num);
 }
 

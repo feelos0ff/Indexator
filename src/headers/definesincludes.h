@@ -12,6 +12,7 @@
 #include <locale>
 #include <locale.h>
 #include <string>
+#include <string.h>
 #include <vector>
 #include <list>
 #include <postgresql/libpq-fe.h>
