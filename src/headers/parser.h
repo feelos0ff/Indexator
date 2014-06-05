@@ -3,7 +3,7 @@
 
 #include "definesincludes.h"
 using namespace std;
-
+///< toDo шаблонный класс
 class Parser{
 
 public:

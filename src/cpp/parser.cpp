@@ -60,7 +60,7 @@ string Parser::UITS(unsigned long num){
 	string result;
 
 	ss << num;
-	result << ss;
+	ss>> result;
 
 	return result;
 }
@@ -70,7 +70,7 @@ unsigned long Parser::STUI(string num){
 	unsigned int result;
 
 	ss << num;
-	result << ss;
+	ss >> result;
 
 	return result;
 }

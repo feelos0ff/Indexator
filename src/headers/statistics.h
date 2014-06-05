@@ -14,6 +14,7 @@
 class Statistics{
 
 	map <string, unsigned long> _wordDict;
+	///< toDo переделать на вектор документов
 	map <unsigned long, unsigned long> _txtDict;
 
 	double _stopLine;
