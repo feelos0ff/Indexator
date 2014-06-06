@@ -36,15 +36,15 @@ vector<string> Parser::NormalizeText(string txt){
 	unsigned long len = txt.length();
 
 	vector<string> result;
-	string word;
+	string word = "";
 
 	for(int i = 0; i < len; ++i){
 		if(isalnum(txt[i]))
 			word += txt[i];
 
 		else if(!word.empty()){
-				result.push_back(NormalizeWord(word));
-				word = "";
+			result.push_back(NormalizeWord(word));
+			word = "";
 		}
 	}
 	if(!word.empty())

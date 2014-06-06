@@ -4,7 +4,7 @@ using namespace std;
 
 void Index::CreateIndex(int stIdx, int endIdx){
     int len = _db.GetCountTxt();
-    for(int i = 0; i < len; i += _maxCountOfText)
+    for(int i = stIdx; i < endIdx; i += _maxCountOfText)
         AddToIndex(i, i + _maxCountOfText - 1);
 
     system("sort *.dict > dict.dict");

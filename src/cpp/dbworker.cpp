@@ -9,7 +9,7 @@
 using namespace std;
 
 DBWorker::DBWorker(){
-	const char *conninfo = "dbname = search_db password = search user = feelosoff";
+	const char *conninfo = "dbname = search_db password = search user = feelosoff set client_encoding=win";
 	_conn = PQconnectdb(conninfo);
 
 	if (PQstatus(_conn) != CONNECTION_OK){
@@ -60,8 +60,8 @@ unsigned long DBWorker::GetCountTxt(){
 }
 
 void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
-	char query[256];
-
+	string query;
+	stringstream ss;
 	string prepTxt = "";
 	int len = txt.size();
 	for(int i = 0; i < len; ++i){
@@ -70,7 +70,9 @@ void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
 		if(i != len -1)
 			prepTxt += ' ';
 	}
-	sprintf(query, "UPDATE news set data_type = %s WHERE id = %d", prepTxt.c_str() ,num);
 
-	PQclear( PQexec(_conn, query) );
+	ss << "UPDATE news set data_type = " << prepTxt << " WHERE id = " << num << ");";
+	ss >> query;
+
+	PQexec(_conn, query.c_str()) ;
 }
