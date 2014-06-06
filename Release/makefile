@@ -44,7 +44,7 @@ all: index
 index: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L/usr/lib/ -o "index" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "index" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
