@@ -9,7 +9,7 @@
 using namespace std;
 
 DBWorker::DBWorker(){
-	const char *conninfo = "dbname = search_db password = search user = search_user";
+	const char *conninfo = "dbname = search_db password = search user = feelosoff";
 	_conn = PQconnectdb(conninfo);
 
 	if (PQstatus(_conn) != CONNECTION_OK){

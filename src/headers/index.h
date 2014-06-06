@@ -19,6 +19,8 @@ class Index{
     int _maxCountOfText;
 public:
 
+    Index():_stat(){_maxCountOfText = 100;}
+
     void CreateIndex(int stIdx, int endIdx);
     void AddToIndex(int stIdx, int endIdx);
 
@@ -32,6 +34,7 @@ class IndexTable{
     Statistics _stat;
 
 public:
+
 
     void LoadIndex(string);					///< загрузка индекса из файла
     PostingList* FindPos(string);			///< поиск слова

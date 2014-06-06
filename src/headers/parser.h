@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include "definesincludes.h"
+#include "checkrus.h"
 using namespace std;
 ///< toDo шаблонный класс
 class Parser{

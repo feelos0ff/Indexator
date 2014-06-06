@@ -6,14 +6,30 @@
  */
 
 #include "../headers/parser.h"
-///< toDo запилить стеммер именно сюда
+
+
 string Parser::NormalizeWord(string word){
 	unsigned long len = word.length();
 
-	for(int i = 0; i < len; ++i)
-		word[i] = tolower(word[i]);
+	for(int i = 0; i < len; ++i){
+		if(isspace(word[i]))
+			word[i] = '_';
+		if(isalpha(word[i]))
+			word[i] = tolower(word[i]);
+	}
 
-	return word;
+	char *res = DrawStem( word.c_str() );
+	if(!res)
+	   	return word;
+
+	word = res;
+    free(res);
+	int pos = word.find('|');
+
+	if(pos < 0)
+		pos = word.length();
+
+	return word.substr(0, pos);
 }
 
 vector<string> Parser::NormalizeText(string txt){
@@ -28,7 +44,6 @@ vector<string> Parser::NormalizeText(string txt){
 
 		else if(!word.empty()){
 				result.push_back(NormalizeWord(word));
-
 				word = "";
 		}
 	}
@@ -40,17 +55,27 @@ vector<string> Parser::NormalizeText(string txt){
 vector<string> Parser::NormalizeMeta(string txt){
 	long posB = 0, posE = 0;
 	vector<string> result;
+	string title= "title\":\"";
+	while(true){
+		posB = txt.find(":\"",posE);
 
-	while(posB >= 0 && posB != txt.length()){
-		posB = txt.find(":\"\"",posE) + 3;
+		if(posB < 0 || posB == txt.length())
+			break;
+
+		posB += 2;
 		posE = txt.find("\"", posB);
 
-		vector<string> meta = NormalizeText(txt.substr(posB, posE-posB));
+		string word = txt.substr(posB, posE-posB);
+		unsigned long len = word.length();
 
-		unsigned long len = meta.size();
+		for(int i = 0; i < len; ++i){
+			if(isspace(word[i]))
+				word[i] = '_';
+			if(isalpha(word[i]))
+				word[i] = tolower(word[i]);
+		}
 
-		for(int i = 0; i < len; ++i)
-			result.push_back(meta[i]);
+		result.push_back(word);
 	}
 	return result;
 }
