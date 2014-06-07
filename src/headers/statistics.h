@@ -21,12 +21,17 @@ class Statistics{
 
 	unsigned long _wc;
 
+	unsigned long long _numsInArc;
+	unsigned long long _byteInArc;
+
 public:
 
-	Statistics(double stopLine = 0.85): _stopLine(stopLine), _wc(0){}
+	Statistics(double stopLine = 0.85): _stopLine(stopLine), _wc(0), _numsInArc(0), _byteInArc(0){}
 
 	void SetStopLine(double);
 
+	void AddArc(unsigned long long, unsigned long long);
+	long double GetArcStat();
 	void Dump(string);
 	void Load(string);
 

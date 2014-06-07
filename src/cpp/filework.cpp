@@ -52,17 +52,17 @@ pair<string, unsigned long long> FileWork::ReadLine(){
 }
 
 void FileWork::WriteIdxLine(string &data){
-	unsigned int len = data.length();
+	int len = data.length();
 
-	_fout.write((char*)&len, sizeof(unsigned int));
+	_fout.write((char*)&len, sizeof(int));
 	_fout.write(data.c_str(), len);
 }
 string FileWork::ReadIdxLine(unsigned long long pos){
 	string result;
-	unsigned int len = 0;
+	int len = 0;
 
 	_fin.seekg(pos);
-	_fin.read((char*)&len, sizeof(unsigned int));
+	_fin.read((char*)&len, sizeof(int));
 
 	if(!len){
 		cout << "WTF " << pos << endl;

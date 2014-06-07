@@ -7,6 +7,17 @@
 
 #include "../headers/statistics.h"
 
+void Statistics::AddArc(unsigned long long nums, unsigned long long bytes){
+	_numsInArc += nums;
+	_byteInArc += bytes;
+}
+
+long double Statistics::GetArcStat(){
+	long double res = 0;
+	res = (long double)_numsInArc / (long double) _byteInArc;
+	return res;
+}
+
 void Statistics::AddWord(string word, unsigned long txtNum){
 	_wordDict[word]++;
 	_txtDict[txtNum]++;

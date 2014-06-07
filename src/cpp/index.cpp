@@ -9,7 +9,7 @@ void Index::CreateIndex(int stIdx, int endIdx){
     	endIdx = len;
 
     for(int i = stIdx; i < endIdx; i += _maxCountOfText)
-        AddToIndex(i, min(i + _maxCountOfText - 1, endIdx));
+        AddToIndex(i, min(i + _maxCountOfText, endIdx));
 
     system("iconv -f cp1251 -t utf-8 *.dict | sort -t ' ' -h | iconv -f utf-8 -t cp1251 > dict.dict");
     system("rm *_tmp.dict");
@@ -34,6 +34,8 @@ void Index::AddToIndex(int stIdx, int endIdx){
         int len = processedText.size();
 
         for(int wordNum = 0; wordNum < len; ++wordNum){
+        	if(processedText[wordNum] == "")
+        		continue;
             dictionary[ processedText[wordNum] ][txtNum].push_back(-1);
             _stat.AddWord(processedText[wordNum], txtNum);
         }
@@ -42,6 +44,9 @@ void Index::AddToIndex(int stIdx, int endIdx){
         len = processedText.size();
 
         for(int wordNum = 0; wordNum < len; ++wordNum){
+           	if(processedText[wordNum] == "")
+            	continue;
+
         	dictionary[ processedText[wordNum] ][txtNum].push_back(pos);
             pos += processedText[wordNum].length() + 1;
 
@@ -86,27 +91,28 @@ void Index::Merge(string fileName){
 
         if(targetLine.first == "")
         	continue;
-       // cout << currentLine.first << " " << currentLine.first.length() << " ";
-       // cout << targetLine.first << " " << targetLine.first.length() << endl;
+
         if(currentLine.first == targetLine.first)
         	currentPosts.Merge(targetLine.second, "index_tmp.idx");
 
         else{
-        	_fw.WriteLine(currentLine.first,pos);
-        	pos = currentPosts.Dump("index.idx");
-
+        	if(currentLine.first != "" ){
+        		_fw.WriteLine(currentLine.first,pos);
+        		pos = currentPosts.Dump("index.idx");
+        	}
             currentLine = targetLine;
             currentPosts.Load(currentLine.second, "index_tmp.idx");
        }
-      //  cout << "OK" << endl;
     }
-    _fw.WriteLine(currentLine.first,pos);
-	pos = currentPosts.Dump("index.idx");
+    if(currentLine.first != "" ){
+    	_fw.WriteLine(currentLine.first,pos);
+    	pos = currentPosts.Dump("index.idx");
+    }
 
     _fw.CloseRead();
     _fw.CloseWrite();
 
-    system("rm index_tmp.idx dict.dict");
+ //   system("rm index_tmp.idx dict.dict");
 }
 
 

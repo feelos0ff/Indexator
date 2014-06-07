@@ -72,6 +72,7 @@ void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
 			prepTxt += ' ';
 	}
 	PQexec(_conn, "set names \'win-1251\';");
+
 	query = string("UPDATE news set data_type = \' ") + prepTxt + string("\' WHERE id = ") + Parser::UITS(num) + string(";");
 
 

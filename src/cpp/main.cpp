@@ -14,8 +14,19 @@ int main()
 	}
 
 	Index idx;
-	idx.CreateIndex(1, 0);
-
-    return 0;
+	idx.CreateIndex(98, 101);
+	IndexTable tbl;
+	tbl.LoadIndex("index.dict");
+	while(true){
+		cout << '>' ;
+		string q;
+		cin >> q;
+		PostingList *p = tbl.FindPos(q);
+		if(p)
+			cout << p->Length() << endl;
+		else
+			cout << 0 << endl;
+	}
+	return 0;
 }
 

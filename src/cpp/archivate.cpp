@@ -33,10 +33,10 @@ string Archivate::Decode(list<unsigned long long>& data){
 	for(;iter != data.end(); iter++){
 		unsigned long long val = *iter;
 		while(val > 0x7f){
-			res += 0x80 + (val & 0x7f);
+			res += char(0x80 + (val & 0x7f));
 			val = val >> 7;
 		}
-		res += val;
+		res += char(val);
 	}
 	return res;
 }
