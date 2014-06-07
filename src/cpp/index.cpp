@@ -4,10 +4,11 @@ using namespace std;
 
 void Index::CreateIndex(int stIdx, int endIdx){
     int len = _db.GetCountTxt();
+    endIdx =len;
     for(int i = stIdx; i < endIdx; i += _maxCountOfText)
         AddToIndex(i, min(i + _maxCountOfText - 1, endIdx));
 
-    system("sort *.dict > dict.dict");
+    system("iconv -f cp1251 -t utf-8 *.dict | sort | iconv -f utf-8 -t cp1251 > dict.dict");
     system("rm *_tmp.dict");
 
     Merge("dict.dict");
@@ -79,7 +80,11 @@ void Index::Merge(string fileName){
 
     while(!_fw.IsEOF()){
         pair<string, unsigned int> targetLine = _fw.ReadLine();
-        cout << targetLine.first << " " << targetLine.first.length() << " ";
+
+        if(targetLine.first == "")
+        	continue;
+
+   //     cout << targetLine.first << " " << targetLine.first.length() << " ";
         if(currentLine.first == targetLine.first)
         	currentPosts.Merge(targetLine.second, "index_tmp.idx");
 
@@ -90,7 +95,7 @@ void Index::Merge(string fileName){
             currentLine = targetLine;
             currentPosts.Load(currentLine.second, "index_tmp.idx");
        }
-        cout << "OK" << endl;
+    //    cout << "OK" << endl;
     }
     _fw.WriteLine(currentLine.first,pos);
 	pos = currentPosts.Dump("index.idx");

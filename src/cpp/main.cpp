@@ -7,10 +7,14 @@ using namespace std;
 
 int main()
 {
-	std::locale::global( std::locale( "ru_RU.cp1251" ) );
+
+	if(! setlocale (LC_CTYPE , "ru_RU.cp1251")){
+		cout << "locale problems" << endl;
+		exit(0);
+	}
 
 	Index idx;
-	idx.CreateIndex(1, 5);
+	idx.CreateIndex(1, 0);
 
     return 0;
 }

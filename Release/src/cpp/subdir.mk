@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/cpp/archivate.cpp \
+../src/cpp/checkrus.cpp \
 ../src/cpp/dbworker.cpp \
 ../src/cpp/entrance.cpp \
 ../src/cpp/filework.cpp \
@@ -18,6 +19,7 @@ CPP_SRCS += \
 
 OBJS += \
 ./src/cpp/archivate.o \
+./src/cpp/checkrus.o \
 ./src/cpp/dbworker.o \
 ./src/cpp/entrance.o \
 ./src/cpp/filework.o \
@@ -31,6 +33,7 @@ OBJS += \
 
 CPP_DEPS += \
 ./src/cpp/archivate.d \
+./src/cpp/checkrus.d \
 ./src/cpp/dbworker.d \
 ./src/cpp/entrance.d \
 ./src/cpp/filework.d \
