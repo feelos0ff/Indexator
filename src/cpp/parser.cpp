@@ -12,12 +12,12 @@ string Parser::NormalizeWord(string word){
 	unsigned long len = word.length();
 
 	for(int i = 0; i < len; ++i){
-		if(isspace(word[i]))
+		if(isspace((unsigned char)word[i]))
 			word[i] = '_';
-		if(isalpha(word[i]))
-			word[i] = tolower(word[i]);
+		if(isalpha((unsigned char)word[i]))
+			word[i] = tolower((unsigned char)word[i]);
 	}
-
+	string tmp = word;
 	char *res = DrawStem( word.c_str() );
 	if(!res)
 	   	return word;
@@ -28,7 +28,7 @@ string Parser::NormalizeWord(string word){
 
 	if(pos < 0)
 		pos = word.length();
-
+	cout << tmp <<" " << word << " " << word.length() << " " << pos << endl;
 	return word.substr(0, pos);
 }
 
@@ -39,7 +39,7 @@ vector<string> Parser::NormalizeText(string txt){
 	string word = "";
 
 	for(int i = 0; i < len; ++i){
-		if(isalnum(txt[i]))
+		if(isalnum((unsigned char)txt[i]))
 			word += txt[i];
 
 		else if(!word.empty()){

@@ -61,7 +61,7 @@ unsigned long long PostingList::Dump(string fileName){
 	unsigned long long lastDocId = 0;
 	unsigned long long lastPointEnt = 0;
 
-	for(int i = 0; iter != _posts.end(); iter++, i = (i + 1) %3){
+	for(int i = 0; iter != _posts.end(); iter++, i = (i + 1) %2){
 		unsigned long long data = 0;
 
 		switch(i){
@@ -74,19 +74,13 @@ unsigned long long PostingList::Dump(string fileName){
 				data = iter->second.first;
 				break;
 
-			case 2:
-				if(!iter->second.second.second->OnDisck())
-					iter->second.second.first = iter->second.second.second->Dump("all.ent");
-
-				data = iter->second.second.first - lastPointEnt;
-				break;
 		}
 		dataForArchivate.push_back(data);
 	}
 
 	string results = Archivate::Decode(dataForArchivate);
 	_fw.WriteIdxLine(results);
-	pos = _fw.GetPos() - pos;
+//	pos = _fw.GetPos() - pos;
 	_fw.CloseWrite();
 
 	return pos;
@@ -113,7 +107,7 @@ void PostingList::Load(unsigned long long pos){
 	unsigned long docId = 0;
 	pair<unsigned long, pair<unsigned long long, BasePost*> >  entrance;
 
-	for(int i = 0; iter != rawPost->end(); iter++, i = (i + 1) %3){
+	for(int i = 0; iter != rawPost->end(); iter++, i = (i + 1) %2){
 		switch (i){
 			case 0:
 				docId += *iter;
@@ -122,13 +116,13 @@ void PostingList::Load(unsigned long long pos){
 			case 1:
 				entrance.first = *iter;
 				break;
-
+/*
 			case 2:
 				entrance.second.first += *iter;
 				entrance.second.second = NULL;
 
 				_posts[docId] = entrance;
-				_docId.push_back(docId);
+				_docId.push_back(docId);*/
 		}
 	}
 

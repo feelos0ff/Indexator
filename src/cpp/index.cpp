@@ -56,7 +56,7 @@ void Index::AddToIndex(int stIdx, int endIdx){
     	for(;docIter != wordIter->second.end(); docIter++)
     		posts.Add(docIter->first, docIter->second);
 
-    	pos += posts.Dump("index_tmp.idx");
+    	pos = posts.Dump("index_tmp.idx");
     	_fw.WriteLine(wordIter->first, pos);
     }
 

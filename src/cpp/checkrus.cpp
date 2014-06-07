@@ -47,7 +47,7 @@
 
 unsigned char*  fuzzyTab = fuzzyRus;
 
-char  vowels[] = "���������";
+char  vowels[] = {0xE0, 0xE5, 0xE8, 0xEE, 0xF3, 0xFB, 0xFD, 0xFE, 0xFF, 0x00};
 
 unsigned char toLoCaseMatrix1251[256] =
 {

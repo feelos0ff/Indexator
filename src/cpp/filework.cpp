@@ -41,12 +41,17 @@ void FileWork::CloseWrite(){
 }
 
 void FileWork::WriteLine(string word, unsigned long long num){
-	_fout << word << ' ' << num << endl;
+
+	_fout << word << ' ';
+	_fout.write((char*)&num, sizeof(unsigned long long));
 }
 
 pair<string, unsigned long long> FileWork::ReadLine(){
 	pair<string, unsigned long long> result;
-	_fin >> result.first >> result.second;
+
+	getline(_fin, result.first, ' ');
+	_fin.read((char*)&result.second, sizeof(unsigned long long));
+
 	return result;
 }
 
