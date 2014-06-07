@@ -63,7 +63,6 @@ unsigned long DBWorker::GetCountTxt(){
 
 void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
 	string query;
-	stringstream ss;
 	string prepTxt = "";
 	int len = txt.size();
 	for(int i = 0; i < len; ++i){
@@ -73,8 +72,8 @@ void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
 			prepTxt += ' ';
 	}
 	PQexec(_conn, "set names \'win-1251\';");
-	ss << "UPDATE news set data_type = " << prepTxt << " WHERE id = " << num << ");";
-	ss >> query;
+	query = string("UPDATE news set data_type = \' ") + prepTxt + string("\' WHERE id = ") + Parser::UITS(num) + string(";");
+
 
 	PQexec(_conn, query.c_str()) ;
 }

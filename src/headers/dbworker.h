@@ -8,7 +8,7 @@
 #ifndef DBWORKER_H_
 #define DBWORKER_H_
 #include "definesincludes.h"
-
+#include "parser.h"
 
 class DBWorker{
 
