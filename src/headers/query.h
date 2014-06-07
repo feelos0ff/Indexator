@@ -13,7 +13,8 @@ class Query{
     unsigned long _maxLenQuery;
 
 public:
-
+    Query():_maxLenQuery(10){}
+    void SetTable(IndexTable *idx){_idx=idx;}
     PostingList* ExecQuery(string);
 
 };
