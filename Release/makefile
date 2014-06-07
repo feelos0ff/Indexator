@@ -44,7 +44,7 @@ all: index
 index: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "index" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L/opt/PostgreSQL/9.3/lib -o "index" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
