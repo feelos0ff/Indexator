@@ -86,8 +86,8 @@ void Index::Merge(string fileName){
 
         if(targetLine.first == "")
         	continue;
-        cout << currentLine.first << " " << currentLine.first.length() << " ";
-        cout << targetLine.first << " " << targetLine.first.length() << endl;
+       // cout << currentLine.first << " " << currentLine.first.length() << " ";
+       // cout << targetLine.first << " " << targetLine.first.length() << endl;
         if(currentLine.first == targetLine.first)
         	currentPosts.Merge(targetLine.second, "index_tmp.idx");
 
@@ -98,7 +98,7 @@ void Index::Merge(string fileName){
             currentLine = targetLine;
             currentPosts.Load(currentLine.second, "index_tmp.idx");
        }
-        cout << "OK" << endl;
+      //  cout << "OK" << endl;
     }
     _fw.WriteLine(currentLine.first,pos);
 	pos = currentPosts.Dump("index.idx");

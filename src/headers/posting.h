@@ -12,46 +12,9 @@
 #include "archivate.h"
 
 
-class BasePost{
-public:
-	virtual ~BasePost(){}
-
-	virtual bool OnDisck() = 0;
-	virtual list<int>* GetEntrance() = 0;
-	virtual unsigned long long Dump(string) = 0;
-};
-
-
-class Post : public BasePost{
-
-	list<int> _entrance;
-public:
-
-	void SetEntrance(list<int>&);
-	bool OnDisck();
-
-	list<int>* GetEntrance();
-	unsigned long long Dump(string);
-};
-
-
-class PostFromDump : public BasePost{
-	unsigned long _countEnt;
-	unsigned long long _pointEnt;
-
-	FileWork _fw;
-
-public:
-	bool OnDisck();
-
-	list<int>* GetEntrance();
-	unsigned long long Dump(string);
-};
-
-
 class PostingList{
-	///< номер документа, количество вхождений, указатель на смещение, указатель на вхождения
-	map<unsigned long ,pair<unsigned long, pair<unsigned long long, BasePost*> > > _posts;
+	///< номер документа, количество вхождений
+	map<unsigned long ,unsigned long > _posts;
 
 	list<unsigned long> _docId;
 	FileWork _fw;
@@ -67,7 +30,6 @@ public:
 
 	unsigned long long Dump(string);						///< запись в файл
 
-//	void UpToRAM(unsigned long);							///< загрузка из файла списка фхождений
 
 	unsigned long Length();								///< количество файлов в постинглисте
 	unsigned long LengthEnt(unsigned long);					///< количество вхождений в данный файл

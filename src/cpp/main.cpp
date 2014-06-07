@@ -14,7 +14,7 @@ int main()
 	}
 
 	Index idx;
-	idx.CreateIndex(1, 1000);
+	idx.CreateIndex(1, 0);
 
     return 0;
 }

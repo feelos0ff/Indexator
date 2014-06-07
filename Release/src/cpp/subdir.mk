@@ -7,7 +7,6 @@ CPP_SRCS += \
 ../src/cpp/archivate.cpp \
 ../src/cpp/checkrus.cpp \
 ../src/cpp/dbworker.cpp \
-../src/cpp/entrance.cpp \
 ../src/cpp/filework.cpp \
 ../src/cpp/index.cpp \
 ../src/cpp/main.cpp \
@@ -21,7 +20,6 @@ OBJS += \
 ./src/cpp/archivate.o \
 ./src/cpp/checkrus.o \
 ./src/cpp/dbworker.o \
-./src/cpp/entrance.o \
 ./src/cpp/filework.o \
 ./src/cpp/index.o \
 ./src/cpp/main.o \
@@ -35,7 +33,6 @@ CPP_DEPS += \
 ./src/cpp/archivate.d \
 ./src/cpp/checkrus.d \
 ./src/cpp/dbworker.d \
-./src/cpp/entrance.d \
 ./src/cpp/filework.d \
 ./src/cpp/index.d \
 ./src/cpp/main.d \
