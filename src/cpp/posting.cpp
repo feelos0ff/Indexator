@@ -10,12 +10,10 @@ PostingList::PostingList(){}
 
 PostingList::~PostingList(){}
 
-void PostingList::Add(unsigned long docId, list<int>& ent){
+void PostingList::Add(unsigned long docId, unsigned long ent){
 
 	_docId.push_back(docId);
-	unsigned long  entrance;
-
-	_posts[docId] = ent.size();
+	_posts[docId] = ent;
 }
 
 void PostingList::Merge(unsigned long long pos, string fileName){
@@ -46,6 +44,7 @@ unsigned long long PostingList::Dump(string fileName){
 	unsigned long long lastPointEnt = 0;
 
 	for(; iter != _posts.end(); iter++){
+	//	cout << iter->first << " " << iter->second << " ";
 		for(int i = 0; i < 2;++i){
 			unsigned long long data = 0;
 
@@ -62,6 +61,7 @@ unsigned long long PostingList::Dump(string fileName){
 			dataForArchivate.push_back(data);
 		}
 	}
+//	cout << endl;
 
 	string results = Archivate::Decode(dataForArchivate);
 
@@ -92,17 +92,15 @@ void PostingList::Load(unsigned long long pos){
 	unsigned long docId = 0;
 	unsigned long  entrance = 0;
 
-	for(; iter != rawPost->end(); iter++){
-		for(int i = 0; i < 2; ++i){
-			switch (i){
-				case 0:
-					docId += *iter;
-					break;
+	for(int i = 0; iter != rawPost->end(); iter++,i=(i+1)%2){
+		switch (i){
+			case 0:
+				docId += *iter;
+				break;
 
-				case 1:
-					entrance = *iter;
-					break;
-			}
+			case 1:
+				entrance = *iter;
+				break;
 		}
 		_posts[docId] = entrance;
 		_docId.push_back(entrance);

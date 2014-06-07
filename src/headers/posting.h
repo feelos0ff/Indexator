@@ -23,7 +23,7 @@ public:
 	PostingList();
 	~PostingList();
 
-	void Add(unsigned long, list<int>&);					///< добавление документа к текущему постинглисту
+	void Add(unsigned long, unsigned long);					///< добавление документа к текущему постинглисту
 
 	void Merge(unsigned long long, string);							///< слияние текущего и заданного смещением
 	void Merge(PostingList*);								///< слияние текущего и заданного указателем

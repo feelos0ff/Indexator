@@ -68,10 +68,10 @@ string FileWork::ReadIdxLine(unsigned long long pos){
 		cout << "WTF " << pos << endl;
 		return result;
 	}
-	char *data = (char*)malloc(sizeof(char) * len);
+	char *data = (char*)malloc(sizeof(char) * (len + 1));
 
 	_fin.read(data, len);
-	result = data;
+	result = string(data, len);
 
 	free(data);
 

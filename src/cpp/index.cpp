@@ -10,7 +10,7 @@ void Index::CreateIndex(int stIdx, int endIdx){
 
     for(int i = stIdx; i < endIdx; i += _maxCountOfText)
         AddToIndex(i, min(i + _maxCountOfText, endIdx));
-
+   // exit(0);
     system("iconv -f cp1251 -t utf-8 *.dict | sort -t ' ' -h | iconv -f utf-8 -t cp1251 > dict.dict");
     system("rm *_tmp.dict");
 
@@ -25,10 +25,9 @@ void Index::AddToIndex(int stIdx, int endIdx){
     string fileName = Parser::UITS(stIdx);
 
     _fw.OpenWrite(fileName + "_tmp.dict");
-    map<string, map<unsigned int,list<int> > > dictionary;
+    map<string, map<unsigned long, unsigned long> > dictionary;
 
     for(int txtNum = stIdx; txtNum < endIdx; txtNum++){
-        int pos = 0;
 
         vector<string> processedText = Parser::NormalizeMeta(_db.GetMetaData(txtNum));
         int len = processedText.size();
@@ -36,7 +35,7 @@ void Index::AddToIndex(int stIdx, int endIdx){
         for(int wordNum = 0; wordNum < len; ++wordNum){
         	if(processedText[wordNum] == "")
         		continue;
-            dictionary[ processedText[wordNum] ][txtNum].push_back(-1);
+            dictionary[ processedText[wordNum] ][txtNum]++;
             _stat.AddWord(processedText[wordNum], txtNum);
         }
 
@@ -47,19 +46,17 @@ void Index::AddToIndex(int stIdx, int endIdx){
            	if(processedText[wordNum] == "")
             	continue;
 
-        	dictionary[ processedText[wordNum] ][txtNum].push_back(pos);
-            pos += processedText[wordNum].length() + 1;
-
+        	dictionary[ processedText[wordNum] ][txtNum]++;
             _stat.AddWord(processedText[wordNum], txtNum);
         }
 
         _db.SetPrepText(processedText, txtNum);
     }
-    map<string, map<unsigned int,list<int> > >::iterator wordIter = dictionary.begin();
+    map<string, map<unsigned long, unsigned long> >::iterator wordIter = dictionary.begin();
     unsigned long long pos = 0;
 
     for(; wordIter != dictionary.end(); wordIter++){
-    	map<unsigned int,list<int> >::iterator docIter = wordIter->second.begin();
+    	 map<unsigned long, unsigned long>::iterator docIter = wordIter->second.begin();
     	PostingList posts;
 
     	for(;docIter != wordIter->second.end(); docIter++)

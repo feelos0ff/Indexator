@@ -14,7 +14,7 @@ list<unsigned long long>* Archivate::Encode(string &data){
 	unsigned long long val = 0;
 
 	for(int i = 0; i < len; ++i){
-		if(data[i] > 0x7f){
+		if(((unsigned char)data[i]) > 0x7f){
 			val += data[i] & 0x7f;
 			val = val << 7;
 		}
