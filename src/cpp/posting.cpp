@@ -92,6 +92,9 @@ void PostingList::Load(unsigned long long pos){
 	unsigned long docId = 0;
 	unsigned long  entrance = 0;
 
+	_posts.clear();
+	_docId.clear();
+
 	for(int i = 0; iter != rawPost->end(); iter++,i=(i+1)%2){
 		switch (i){
 			case 0:

@@ -14,7 +14,7 @@ int main()
 	}
 
 	Index idx;
-	idx.CreateIndex(98, 101);
+	idx.CreateIndex(1, 0);
 	IndexTable tbl;
 	tbl.LoadIndex("index.dict");
 	while(true){

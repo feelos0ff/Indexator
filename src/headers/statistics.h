@@ -12,7 +12,7 @@
 #include "filework.h"
 
 class Statistics{
-
+	///< toDo добавить отображение номер слова, итератор на вхождение
 	map <string, unsigned long> _wordDict;
 	///< toDo переделать на вектор документов
 	map <unsigned long, unsigned long> _txtDict;

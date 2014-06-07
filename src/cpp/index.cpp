@@ -11,7 +11,10 @@ void Index::CreateIndex(int stIdx, int endIdx){
     for(int i = stIdx; i < endIdx; i += _maxCountOfText)
         AddToIndex(i, min(i + _maxCountOfText, endIdx));
    // exit(0);
-    system("iconv -f cp1251 -t utf-8 *.dict | sort -t ' ' -h | iconv -f utf-8 -t cp1251 > dict.dict");
+    system("iconv -f cp1251 -t utf-8 *.dict |  "
+    	   "sort -t \' \' -k 2.1 -n | "
+    	   "sort -t \' \' -k 1.1,1 -s  | "
+    	   "iconv -f utf-8 -t cp1251 > dict.dict");
     system("rm *_tmp.dict");
 
     Merge("dict.dict");
@@ -109,7 +112,7 @@ void Index::Merge(string fileName){
     _fw.CloseRead();
     _fw.CloseWrite();
 
- //   system("rm index_tmp.idx dict.dict");
+    system("rm index_tmp.idx dict.dict");
 }
 
 
