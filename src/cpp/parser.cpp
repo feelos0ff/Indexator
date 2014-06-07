@@ -28,7 +28,7 @@ string Parser::NormalizeWord(string word){
 
 	if(pos < 0)
 		pos = word.length();
-	cout << tmp <<" " << word << " " << word.length() << " " << pos << endl;
+//	cout << tmp <<" " << word << " " << word.length() << " " << pos << endl;
 	return word.substr(0, pos);
 }
 

@@ -10,7 +10,7 @@ int main()
 	std::locale::global( std::locale( "ru_RU.cp1251" ) );
 
 	Index idx;
-	idx.CreateIndex(1, 2);
+	idx.CreateIndex(1, 5);
 
     return 0;
 }

@@ -5,7 +5,7 @@ using namespace std;
 void Index::CreateIndex(int stIdx, int endIdx){
     int len = _db.GetCountTxt();
     for(int i = stIdx; i < endIdx; i += _maxCountOfText)
-        AddToIndex(i, i + _maxCountOfText - 1);
+        AddToIndex(i, min(i + _maxCountOfText - 1, endIdx));
 
     system("sort *.dict > dict.dict");
     system("rm *_tmp.dict");
@@ -79,20 +79,21 @@ void Index::Merge(string fileName){
 
     while(!_fw.IsEOF()){
         pair<string, unsigned int> targetLine = _fw.ReadLine();
-
+        cout << targetLine.first << " " << targetLine.first.length() << " ";
         if(currentLine.first == targetLine.first)
         	currentPosts.Merge(targetLine.second, "index_tmp.idx");
 
         else{
         	_fw.WriteLine(currentLine.first,pos);
-        	pos += currentPosts.Dump("index.idx");
+        	pos = currentPosts.Dump("index.idx");
 
             currentLine = targetLine;
             currentPosts.Load(currentLine.second, "index_tmp.idx");
        }
+        cout << "OK" << endl;
     }
     _fw.WriteLine(currentLine.first,pos);
-	pos += currentPosts.Dump("index.idx");
+	pos = currentPosts.Dump("index.idx");
 
     _fw.CloseRead();
     _fw.CloseWrite();

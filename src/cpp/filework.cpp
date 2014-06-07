@@ -39,13 +39,14 @@ void FileWork::CloseRead(){
 void FileWork::CloseWrite(){
 	_fout.close();
 }
-
+///< toDo исправить под текстовое
 void FileWork::WriteLine(string word, unsigned long long num){
 
-	_fout << word << ' ';
+	_fout.write(word.c_str(), word.length());
+	_fout.put(' ');
 	_fout.write((char*)&num, sizeof(unsigned long long));
 }
-
+///< toDo исправить под полностью текстовое
 pair<string, unsigned long long> FileWork::ReadLine(){
 	pair<string, unsigned long long> result;
 

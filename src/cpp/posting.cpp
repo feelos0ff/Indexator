@@ -61,26 +61,28 @@ unsigned long long PostingList::Dump(string fileName){
 	unsigned long long lastDocId = 0;
 	unsigned long long lastPointEnt = 0;
 
-	for(int i = 0; iter != _posts.end(); iter++, i = (i + 1) %2){
-		unsigned long long data = 0;
+	for(; iter != _posts.end(); iter++){
+		for(int i = 0; i < 2;++i){
+			unsigned long long data = 0;
 
-		switch(i){
-			case 0:
-				data = iter->first - lastDocId;
-				lastDocId = iter->first;
-				break;
+			switch(i){
+				case 0:
+					data = iter->first - lastDocId;
+					lastDocId = iter->first;
+					break;
 
-			case 1:
-				data = iter->second.first;
-				break;
+				case 1:
+					data = iter->second.first;
+					break;
 
+			}
+			dataForArchivate.push_back(data);
 		}
-		dataForArchivate.push_back(data);
 	}
 
 	string results = Archivate::Decode(dataForArchivate);
+
 	_fw.WriteIdxLine(results);
-//	pos = _fw.GetPos() - pos;
 	_fw.CloseWrite();
 
 	return pos;
