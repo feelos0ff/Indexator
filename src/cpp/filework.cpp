@@ -8,74 +8,77 @@
 
 #include "../headers/filework.h"
 
-void FileWork::OpenRead(string fileName){
-	_fin.open(fileName.c_str(), ios::binary);
+void FileWork::OpenRead ( string fileName ) {
+    _fin.open ( fileName.c_str(), ios::binary );
 }
 
-void FileWork::OpenWrite(string fileName, bool append){
-	if(append)
-		_fout.open(fileName.c_str(), ios::app | ios::binary);
-	else
-		_fout.open(fileName.c_str(), ios::binary);
+void FileWork::OpenWrite ( string fileName, bool append ) {
+    if ( append )
+        _fout.open ( fileName.c_str(), ios::app | ios::binary );
+
+    else
+        _fout.open ( fileName.c_str(), ios::binary );
 }
 
-bool FileWork::IsEOF(){
-	if(_fin)
-		return false;
-	return true;
+bool FileWork::IsEOF() {
+    if ( _fin )
+        return false;
+
+    return true;
 }
 
-unsigned long long FileWork::GetPos(){
-	return _fout.tellp();
+unsigned long long FileWork::GetPos() {
+    return _fout.tellp();
 }
 
-void FileWork::SetPos(unsigned long long pos){
-	_fin.seekg(pos);
+void FileWork::SetPos ( unsigned long long pos ) {
+    _fin.seekg ( pos );
 }
 
-void FileWork::CloseRead(){
-	_fin.close();
+void FileWork::CloseRead() {
+    _fin.close();
 }
-void FileWork::CloseWrite(){
-	_fout.close();
-}
-
-void FileWork::WriteLine(string word, unsigned long long num){
-
-	_fout << word << ' ' << num << endl;
+void FileWork::CloseWrite() {
+    _fout.close();
 }
 
-pair<string, unsigned long long> FileWork::ReadLine(){
-	pair<string, unsigned long long> result;
-	_fin >> result.first  >> result.second;
-	return result;
+void FileWork::WriteLine ( string word, unsigned long long num ) {
+
+    _fout << word << ' ' << num << endl;
 }
 
-void FileWork::WriteIdxLine(string &data){
-	int len = data.length();
-
-	_fout.write((char*)&len, sizeof(int));
-	_fout.write(data.c_str(), len);
+pair<string, unsigned long long> FileWork::ReadLine() {
+    pair<string, unsigned long long> result;
+    _fin >> result.first  >> result.second;
+    return result;
 }
-string FileWork::ReadIdxLine(unsigned long long pos){
-	string result;
-	int len = 0;
 
-	_fin.seekg(pos);
-	_fin.read((char*)&len, sizeof(int));
+void FileWork::WriteIdxLine ( string &data ) {
+    int len = data.length();
 
-	if(!len){
-		cout << "WTF " << pos << endl;
-		return result;
-	}
-	char *data = (char*)malloc(sizeof(char) * (len + 1));
+    _fout.write ( ( char* ) &len, sizeof ( int ) );
+    _fout.write ( data.c_str(), len );
+}
+string FileWork::ReadIdxLine ( unsigned long long pos ) {
+    string result;
+    int len = 0;
 
-	_fin.read(data, len);
-	result = string(data, len);
+    _fin.seekg ( pos );
+    _fin.read ( ( char* ) &len, sizeof ( int ) );
 
-	free(data);
+    if ( !len ) {
+        cout << "WTF " << pos << endl;
+        return result;
+    }
 
-	return result;
+    char *data = ( char* ) malloc ( sizeof ( char ) * ( len + 1 ) );
+
+    _fin.read ( data, len );
+    result = string ( data, len );
+
+    free ( data );
+
+    return result;
 }
 
 

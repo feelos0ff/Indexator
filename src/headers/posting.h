@@ -12,35 +12,37 @@
 #include "archivate.h"
 #include "statistics.h"
 
-class PostingList{
-	///< номер документа, количество вхождений
-	map<unsigned long ,unsigned long > _posts;
+class PostingList {
+    ///< номер документа, количество вхождений
+    map<unsigned long , unsigned long > _posts;
 
-	list<unsigned long> _docId;
-	FileWork _fw;
-	Statistics *_st;
+    list<unsigned long> _docId;
+    FileWork _fw;
+    Statistics *_st;
 public:
 
-	PostingList(Statistics *st = NULL);
-	~PostingList();
+    PostingList ( Statistics *st = NULL );
+    ~PostingList();
 
-	void Add(unsigned long, unsigned long);					///< добавление документа к текущему постинглисту
+    void Add ( unsigned long, unsigned long );					///< добавление документа к текущему постинглисту
 
-	void Merge(unsigned long long, string);							///< слияние текущего и заданного смещением
-	void Merge(PostingList*);								///< слияние текущего и заданного указателем
+    void Merge ( unsigned long long, string );							///< слияние текущего и заданного смещением
+    void Merge ( PostingList* );								///< слияние текущего и заданного указателем
 
-	unsigned long long Dump(string);						///< запись в файл
+    unsigned long long Dump ( string );						///< запись в файл
 
 
-	unsigned long Length();								///< количество файлов в постинглисте
-	unsigned long LengthEnt(unsigned long);					///< количество вхождений в данный файл
+    unsigned long Length();								///< количество файлов в постинглисте
+    unsigned long LengthEnt ( unsigned long );					///< количество вхождений в данный файл
 
-	void Load(unsigned long long, string);						///< загрузка постинглиста из файла
-	void Load(unsigned long long);							///< загрузка постинглиста изуже открытого файла
+    void Load ( unsigned long long, string );						///< загрузка постинглиста из файла
+    void Load ( unsigned long long );							///< загрузка постинглиста изуже открытого файла
 
-	bool IsExist(unsigned long);							///< проверка на вхождение заданного документа
+    bool IsExist ( unsigned long );							///< проверка на вхождение заданного документа
 
-	list<unsigned long>* GetPostingList(){return &_docId;}	///< выдача постинглиста
+    list<unsigned long>* GetPostingList() {
+        return &_docId;   ///< выдача постинглиста
+    }
 };
 
 

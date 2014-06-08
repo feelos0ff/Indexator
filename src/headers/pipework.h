@@ -11,14 +11,14 @@
 #include "posting.h"
 #include "parser.h"
 
-class PipeWork{
+class PipeWork {
 
-	char _buf[BUFSIZE];
+    char _buf[BUFSIZE];
 
 public:
 
-	string ReadQuery();
-	void WriteQuery(PostingList*, vector<string>&);
+    string ReadQuery();
+    void WriteQuery ( PostingList*, vector<string>& );
 
 };
 

@@ -8,7 +8,7 @@
 #include "dbworker.h"
 #include "statistics.h"
 
-class Index{
+class Index {
 
     FileWork _fw;
     DBWorker _db;
@@ -19,16 +19,18 @@ class Index{
     int _maxCountOfText;
 public:
 
-    Index():_stat(){_maxCountOfText = 100;}
+    Index() : _stat() {
+        _maxCountOfText = 100;
+    }
 
-    void CreateIndex(int stIdx, int endIdx);
-    void AddToIndex(int stIdx, int endIdx);
+    void CreateIndex ( int stIdx, int endIdx );
+    void AddToIndex ( int stIdx, int endIdx );
 
-    void Merge(string);
+    void Merge ( string );
 };
 
 
-class IndexTable{
+class IndexTable {
 
     map<string, unsigned long long> _tbl;
     Statistics _stat;
@@ -36,8 +38,8 @@ class IndexTable{
 public:
 
 
-    void LoadIndex(string);					///< загрузка индекса из файла
-    PostingList* FindPos(string);			///< поиск слова
+    void LoadIndex ( string );					///< загрузка индекса из файла
+    PostingList* FindPos ( string );			///< поиск слова
 
     Statistics* GetStat();					///< выдача статистики
 };

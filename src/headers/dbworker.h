@@ -10,26 +10,26 @@
 #include "definesincludes.h"
 #include "parser.h"
 
-class DBWorker{
+class DBWorker {
 
-	PGconn *_conn;
+    PGconn *_conn;
 
-	string Select(string, unsigned int);
+    string Select ( string, unsigned int );
 
 public:
 
-	DBWorker();
-	~DBWorker();
+    DBWorker();
+    ~DBWorker();
 
-	string GetNewsText(unsigned int);
-    string GetPrepText(unsigned int);
-    string GetMetaData(unsigned int);
+    string GetNewsText ( unsigned int );
+    string GetPrepText ( unsigned int );
+    string GetMetaData ( unsigned int );
 
     unsigned long GetMaxId();
 
     unsigned long GetCountTxt();				///< количество текстов
 
-    void SetPrepText(vector<string>&, unsigned int);
+    void SetPrepText ( vector<string>&, unsigned int );
 };
 
 

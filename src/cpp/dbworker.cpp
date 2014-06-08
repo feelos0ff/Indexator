@@ -8,87 +8,89 @@
 #include "../headers/dbworker.h"
 using namespace std;
 
-DBWorker::DBWorker(){
-	const char *conninfo = "dbname = search_db password = search user = feelosoff";
-	_conn = PQconnectdb(conninfo);
+DBWorker::DBWorker() {
+    const char *conninfo = "dbname = search_db password = search user = feelosoff";
+    _conn = PQconnectdb ( conninfo );
 
-	if (PQstatus(_conn) != CONNECTION_OK){
+    if ( PQstatus ( _conn ) != CONNECTION_OK ) {
 
-		cout <<"Connection to database failed: " << PQerrorMessage(_conn) << endl;
-        exit(0);
-	}
+        cout << "Connection to database failed: " << PQerrorMessage ( _conn ) << endl;
+        exit ( 0 );
+    }
 }
 
-DBWorker::~DBWorker(){
-	PQfinish(_conn);
+DBWorker::~DBWorker() {
+    PQfinish ( _conn );
 }
 
-string DBWorker::Select(string col, unsigned int num){
-	PGresult   *res;
-	string result;
-	char query[256];
+string DBWorker::Select ( string col, unsigned int num ) {
+    PGresult   *res;
+    string result;
+    char query[256];
 
-	PQexec(_conn, "set names \'win-1251\';");
-	sprintf(query, "SELECT %s FROM news WHERE id = %d", col.c_str(), num);
+    PQexec ( _conn, "set names \'win-1251\';" );
+    sprintf ( query, "SELECT %s FROM news WHERE id = %d", col.c_str(), num );
 
-	res = PQexec(_conn, query);
+    res = PQexec ( _conn, query );
 
-	int nnews_text = PQntuples(res);
+    int nnews_text = PQntuples ( res );
 
-	if(nnews_text)
-		result = PQgetvalue(res, 0, 0);
+    if ( nnews_text )
+        result = PQgetvalue ( res, 0, 0 );
 
-	PQclear(res);
-	return result;
+    PQclear ( res );
+    return result;
 }
 
-string DBWorker::GetNewsText(unsigned int num){
-	return Select("news_text", num);
+string DBWorker::GetNewsText ( unsigned int num ) {
+    return Select ( "news_text", num );
 }
 
-string DBWorker::GetPrepText(unsigned int num){
-	return Select("data_type", num);
+string DBWorker::GetPrepText ( unsigned int num ) {
+    return Select ( "data_type", num );
 }
 
-string DBWorker::GetMetaData(unsigned int num){
-	return Select("json", num);
+string DBWorker::GetMetaData ( unsigned int num ) {
+    return Select ( "json", num );
 }
 
-unsigned long DBWorker::GetCountTxt(){
-	PGresult *res = PQexec(_conn, "select id FROM news");
-   	unsigned long rec_count = PQntuples(res);
-   	PQclear(res);
-   	return rec_count;
+unsigned long DBWorker::GetCountTxt() {
+    PGresult *res = PQexec ( _conn, "select id FROM news" );
+    unsigned long rec_count = PQntuples ( res );
+    PQclear ( res );
+    return rec_count;
 }
 
-void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
-	string query;
-	string prepTxt = "";
-	int len = txt.size();
-	for(int i = 0; i < len; ++i){
-		prepTxt += txt[i];
+void DBWorker::SetPrepText ( vector<string>& txt, unsigned int num ) {
+    string query;
+    string prepTxt = "";
+    int len = txt.size();
 
-		if(i != len -1)
-			prepTxt += ' ';
-	}
-	PQexec(_conn, "set names \'win-1251\';");
+    for ( int i = 0; i < len; ++i ) {
+        prepTxt += txt[i];
 
-	query = string("UPDATE news set data_type = \' ") + prepTxt + string("\' WHERE id = ") + Parser::UITS(num) + string(";");
+        if ( i != len - 1 )
+            prepTxt += ' ';
+    }
+
+    PQexec ( _conn, "set names \'win-1251\';" );
+
+    query = string ( "UPDATE news set data_type = \' " ) + prepTxt + string ( "\' WHERE id = " ) + Parser::UITS ( num ) + string ( ";" );
 
 
-	PQexec(_conn, query.c_str()) ;
+    PQexec ( _conn, query.c_str() ) ;
 }
 
 
-unsigned long DBWorker::GetMaxId(){
-	PGresult   *res;
-	unsigned long result;
+unsigned long DBWorker::GetMaxId() {
+    PGresult   *res;
+    unsigned long result;
 
 
-	res = PQexec(_conn, "select max(id) from news;");
+    res = PQexec ( _conn, "select max(id) from news;" );
 
-	result = Parser::STUI(PQgetvalue(res, 0, 0));
+    result = Parser::STUI ( PQgetvalue ( res, 0, 0 ) );
 
-	PQclear(res);
-	return result;
+    PQclear ( res );
+    return result;
 }

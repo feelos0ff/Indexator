@@ -6,13 +6,13 @@
 #include "index.h"
 #include "dbworker.h"
 
-class Ranking{
-	unsigned long _maxRank;
-	 DBWorker _db;
+class Ranking {
+    unsigned long _maxRank;
+    DBWorker _db;
 
 public:
-	Ranking(unsigned long maxRank = 200):_maxRank(maxRank){}
-    PostingList* CuttingList(vector<string>&, IndexTable*);
+    Ranking ( unsigned long maxRank = 200 ) : _maxRank ( maxRank ) {}
+    PostingList* CuttingList ( vector<string>&, IndexTable* );
 };
 
 #endif // RANKING_H

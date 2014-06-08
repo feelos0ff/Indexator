@@ -5,17 +5,17 @@
 #include "checkrus.h"
 using namespace std;
 ///< toDo шаблонный класс
-class Parser{
+class Parser {
 
 public:
 
-    static string NormalizeWord(string);
+    static string NormalizeWord ( string );
 
-    static vector<string> NormalizeText(string);
-    static vector<string> NormalizeMeta(string);
+    static vector<string> NormalizeText ( string );
+    static vector<string> NormalizeMeta ( string );
 
-    static string UITS(unsigned long);
-    static unsigned long STUI(string);
+    static string UITS ( unsigned long );
+    static unsigned long STUI ( string );
 
 };
 

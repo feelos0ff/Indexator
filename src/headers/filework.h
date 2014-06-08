@@ -2,29 +2,29 @@
 #define FILEWORK_H
 #include "definesincludes.h"
 
-class FileWork{
+class FileWork {
 
-	ifstream _fin;
-	ofstream _fout;
+    ifstream _fin;
+    ofstream _fout;
 
 public:
 
-    void OpenRead(string);
-    void OpenWrite(string fileName, bool append = false);
+    void OpenRead ( string );
+    void OpenWrite ( string fileName, bool append = false );
 
     bool IsEOF();
 
     unsigned long long GetPos();
-    void SetPos(unsigned long long);
+    void SetPos ( unsigned long long );
 
     void CloseRead();
     void CloseWrite();
 
-    void WriteLine(string, unsigned long long);
+    void WriteLine ( string, unsigned long long );
     pair<string, unsigned long long> ReadLine();
 
-    void WriteIdxLine(string&);
-    string ReadIdxLine(unsigned long long);
+    void WriteIdxLine ( string& );
+    string ReadIdxLine ( unsigned long long );
 };
 
 #endif // FILEWORK_H

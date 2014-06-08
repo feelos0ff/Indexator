@@ -6,130 +6,135 @@
  */
 #include "../headers/posting.h"
 
-PostingList::PostingList(Statistics *st){_st=st;}
-
-PostingList::~PostingList(){}
-
-void PostingList::Add(unsigned long docId, unsigned long ent){
-
-	_docId.push_back(docId);
-	if(ent)
-		_posts[docId] = ent;
+PostingList::PostingList ( Statistics *st ) {
+    _st = st;
 }
 
-void PostingList::Merge(unsigned long long pos, string fileName){
-	PostingList * newPosting = new PostingList();
+PostingList::~PostingList() {}
 
-	newPosting->Load(pos, fileName);
-	Merge(newPosting);
+void PostingList::Add ( unsigned long docId, unsigned long ent ) {
 
-	delete newPosting;
+    _docId.push_back ( docId );
+
+    if ( ent )
+        _posts[docId] = ent;
 }
 
+void PostingList::Merge ( unsigned long long pos, string fileName ) {
+    PostingList * newPosting = new PostingList();
 
-void PostingList::Merge(PostingList *secondPost){
-	map<unsigned long ,unsigned long >::iterator iter = secondPost->_posts.begin();
+    newPosting->Load ( pos, fileName );
+    Merge ( newPosting );
 
-	for(; iter != secondPost->_posts.end(); iter++){
-		_posts[iter->first] = iter->second;
-		_docId.push_back(iter->first);
-	}
+    delete newPosting;
 }
 
 
-unsigned long long PostingList::Dump(string fileName){
-	_fw.OpenWrite(fileName, true);
-	unsigned long long pos = _fw.GetPos();
+void PostingList::Merge ( PostingList *secondPost ) {
+    map<unsigned long , unsigned long >::iterator iter = secondPost->_posts.begin();
 
-	list<unsigned long long> dataForArchivate;
-	map<unsigned long ,unsigned long >::iterator iter = _posts.begin();
-
-	unsigned long long lastDocId = 0;
-	unsigned long long lastPointEnt = 0;
-
-	for(; iter != _posts.end(); iter++){
-
-		for(int i = 0; i < 2;++i){
-			unsigned long long data = 0;
-
-			switch(i){
-				case 0:
-					data = iter->first - lastDocId;
-					lastDocId = iter->first;
-					break;
-
-				case 1:
-					data = iter->second;
-					break;
-			}
-			dataForArchivate.push_back(data);
-		}
-	}
-
-
-	string results = Archivate::Decode(dataForArchivate);
-
-	if(_st)
-		_st->AddArc(dataForArchivate.size() * sizeof(unsigned long), results.length());
-
-	_fw.WriteIdxLine(results);
-	_fw.CloseWrite();
-
-	return pos;
+    for ( ; iter != secondPost->_posts.end(); iter++ ) {
+        _posts[iter->first] = iter->second;
+        _docId.push_back ( iter->first );
+    }
 }
 
 
-unsigned long PostingList::Length(){
-		return _docId.size();
+unsigned long long PostingList::Dump ( string fileName ) {
+    _fw.OpenWrite ( fileName, true );
+    unsigned long long pos = _fw.GetPos();
+
+    list<unsigned long long> dataForArchivate;
+    map<unsigned long , unsigned long >::iterator iter = _posts.begin();
+
+    unsigned long long lastDocId = 0;
+    unsigned long long lastPointEnt = 0;
+
+    for ( ; iter != _posts.end(); iter++ ) {
+
+        for ( int i = 0; i < 2; ++i ) {
+            unsigned long long data = 0;
+
+            switch ( i ) {
+                case 0:
+                    data = iter->first - lastDocId;
+                    lastDocId = iter->first;
+                    break;
+
+                case 1:
+                    data = iter->second;
+                    break;
+            }
+
+            dataForArchivate.push_back ( data );
+        }
+    }
+
+
+    string results = Archivate::Decode ( dataForArchivate );
+
+    if ( _st )
+        _st->AddArc ( dataForArchivate.size() * sizeof ( unsigned long ), results.length() );
+
+    _fw.WriteIdxLine ( results );
+    _fw.CloseWrite();
+
+    return pos;
 }
 
 
-unsigned long PostingList::LengthEnt(unsigned long docId){
-	return _posts[docId];
-}
-
-void PostingList::Load(unsigned long long pos, string fName){
-	_fw.OpenRead(fName);
-	Load(pos);
-	_fw.CloseRead();
-}
-
-void PostingList::Load(unsigned long long pos){
-	string data = _fw.ReadIdxLine(pos);
-
-	list<unsigned long long> *rawPost = Archivate::Encode(data);
-	list<unsigned long long>::iterator iter = rawPost->begin();
-
-	unsigned long docId = 0;
-	unsigned long  entrance = 0;
-
-	_posts.clear();
-	_docId.clear();
-
-	for(int i = 0; iter != rawPost->end(); iter++,i=(i+1)%2){
-		switch (i){
-			case 0:
-				docId += *iter;
-				break;
-
-			case 1:
-				entrance = *iter;
-				break;
-		}
-		_posts[docId] = entrance;
-		_docId.push_back(docId);
-	}
-
-	delete rawPost;
+unsigned long PostingList::Length() {
+    return _docId.size();
 }
 
 
-bool PostingList::IsExist(unsigned long docId){
+unsigned long PostingList::LengthEnt ( unsigned long docId ) {
+    return _posts[docId];
+}
 
-	if(_posts.end() ==  _posts.find(docId))
-		return false;
+void PostingList::Load ( unsigned long long pos, string fName ) {
+    _fw.OpenRead ( fName );
+    Load ( pos );
+    _fw.CloseRead();
+}
 
-	return true;
+void PostingList::Load ( unsigned long long pos ) {
+    string data = _fw.ReadIdxLine ( pos );
+
+    list<unsigned long long> *rawPost = Archivate::Encode ( data );
+    list<unsigned long long>::iterator iter = rawPost->begin();
+
+    unsigned long docId = 0;
+    unsigned long  entrance = 0;
+
+    _posts.clear();
+    _docId.clear();
+
+    for ( int i = 0; iter != rawPost->end(); iter++, i = ( i + 1 ) % 2 ) {
+        switch ( i ) {
+            case 0:
+                docId += *iter;
+                break;
+
+            case 1:
+                entrance = *iter;
+                break;
+        }
+
+        _posts[docId] = entrance;
+        _docId.push_back ( docId );
+    }
+
+    delete rawPost;
+}
+
+
+bool PostingList::IsExist ( unsigned long docId ) {
+
+    if ( _posts.end() ==  _posts.find ( docId ) )
+        return false;
+
+    return true;
 }
 
 

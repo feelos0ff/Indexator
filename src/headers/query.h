@@ -5,7 +5,7 @@
 #include "ranking.h"
 #include "pipework.h"
 
-class Query{
+class Query {
 
     IndexTable *_idx;
     Ranking _rank;
@@ -14,9 +14,11 @@ class Query{
     PipeWork _pipe;
 
 public:
-    Query():_maxLenQuery(10), _idx(NULL){}
-    void SetTable(IndexTable *idx){_idx=idx;}
-    PostingList* ExecQuery(string);
+    Query() : _maxLenQuery ( 10 ), _idx ( NULL ) {}
+    void SetTable ( IndexTable *idx ) {
+        _idx = idx;
+    }
+    PostingList* ExecQuery ( string );
 
 };
 
