@@ -10,7 +10,7 @@
 #include "definesincludes.h"
 #include "filework.h"
 #include "archivate.h"
-
+#include "statistics.h"
 
 class PostingList{
 	///< номер документа, количество вхождений
@@ -18,9 +18,10 @@ class PostingList{
 
 	list<unsigned long> _docId;
 	FileWork _fw;
+	Statistics *_st;
 public:
 
-	PostingList();
+	PostingList(Statistics *st = NULL);
 	~PostingList();
 
 	void Add(unsigned long, unsigned long);					///< добавление документа к текущему постинглисту

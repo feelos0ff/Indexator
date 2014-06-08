@@ -12,17 +12,22 @@
 #include "filework.h"
 
 class Statistics{
-	///< toDo добавить отображение номер слова, итератор на вхождение
-	map <string, unsigned long> _wordDict;
-	///< toDo переделать на вектор документов
-	map <unsigned long, unsigned long> _txtDict;
+	typedef map <string,pair< unsigned long,unsigned long> >::iterator WordIter;
+	///< отображение номер слова на вхождение
+	vector< WordIter > _wordAccess;
 
-	double _stopLine;
+	///< слово, номер слова, количество вхождений слова
+	map <string,pair< unsigned long,unsigned long> > _wordDict;
 
-	unsigned long _wc;
+	///< массив длин документов
+	vector <unsigned long> _txtDict;
 
-	unsigned long long _numsInArc;
-	unsigned long long _byteInArc;
+	double _stopLine;		///< порог стоп-слова
+
+	unsigned long _wc;		///< суммарный счётчик слов
+
+	unsigned long long _numsInArc;		///< количество несжатых данных
+	unsigned long long _byteInArc;		///< количество данных после сжатия
 
 public:
 
@@ -30,20 +35,28 @@ public:
 
 	void SetStopLine(double);
 
-	void AddArc(unsigned long long, unsigned long long);
+	void AddArc(unsigned long long, unsigned long long);	///< добавление для подсчёта статистики по сжатию
+
 	long double GetArcStat();
+
 	void Dump(string);
 	void Load(string);
 
-	void AddWord(string, unsigned long);
+	void AddWord(string, unsigned long);				///< добавление слово-номер документа
+
+	pair<string, unsigned long> GetWord(unsigned long);		///< по заданному номеру слова получить слово и кол-во вхождений
 
 	unsigned long WordCount();					///< количество слов
 
 	bool IsStopWord(string);					///< проверка на то, является ли стоп-словом
+	bool IsStopWord(unsigned long);				///< проверка на то, является ли стоп-словом на вход номер слова
+
 	double GetAverageLen();						///< средняя длина документа в словах
 
 	unsigned long GetCountTxt();				///< количество текстов
 	unsigned long GetTxtLen(unsigned long);		///< длина данного текста
+
+	void Commit();								///< заполняет номера слов
 };
 
 

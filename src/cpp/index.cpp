@@ -10,7 +10,7 @@ void Index::CreateIndex(int stIdx, int endIdx){
 
     for(int i = stIdx; i < endIdx; i += _maxCountOfText)
         AddToIndex(i, min(i + _maxCountOfText, endIdx));
-   // exit(0);
+
     system("iconv -f cp1251 -t utf-8 *.dict |  "
     	   "sort -t \' \' -k 2.1 -n | "
     	   "sort -t \' \' -k 1.1,1 -s  | "
@@ -18,6 +18,8 @@ void Index::CreateIndex(int stIdx, int endIdx){
     system("rm *_tmp.dict");
 
     Merge("dict.dict");
+
+    _stat.Commit();
     _stat.Dump("index.stat");
 }
 
@@ -60,7 +62,7 @@ void Index::AddToIndex(int stIdx, int endIdx){
 
     for(; wordIter != dictionary.end(); wordIter++){
     	 map<unsigned long, unsigned long>::iterator docIter = wordIter->second.begin();
-    	PostingList posts;
+    	PostingList posts;//(&_stat);
 
     	for(;docIter != wordIter->second.end(); docIter++)
     		posts.Add(docIter->first, docIter->second);
@@ -80,7 +82,7 @@ void Index::Merge(string fileName){
     _fw.OpenWrite("index.dict");
 
     pair<string, unsigned long long> currentLine = _fw.ReadLine();
-    PostingList currentPosts;
+    PostingList currentPosts(&_stat);
 
     currentPosts.Load(currentLine.second, "index_tmp.idx");
 

@@ -6,7 +6,7 @@
  */
 #include "../headers/posting.h"
 
-PostingList::PostingList(){}
+PostingList::PostingList(Statistics *st){_st=st}
 
 PostingList::~PostingList(){}
 
@@ -44,7 +44,7 @@ unsigned long long PostingList::Dump(string fileName){
 	unsigned long long lastPointEnt = 0;
 
 	for(; iter != _posts.end(); iter++){
-	//	cout << iter->first << " " << iter->second << " ";
+
 		for(int i = 0; i < 2;++i){
 			unsigned long long data = 0;
 
@@ -61,9 +61,12 @@ unsigned long long PostingList::Dump(string fileName){
 			dataForArchivate.push_back(data);
 		}
 	}
-//	cout << endl;
+
 
 	string results = Archivate::Decode(dataForArchivate);
+
+	if(_st)
+		_st->AddArc(dataForArchivate.size() * sizeof(unsigned long), results.length());
 
 	_fw.WriteIdxLine(results);
 	_fw.CloseWrite();

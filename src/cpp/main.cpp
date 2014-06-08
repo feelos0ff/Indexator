@@ -17,6 +17,7 @@ int main()
 	idx.CreateIndex(1, 0);
 	IndexTable tbl;
 	tbl.LoadIndex("index.dict");
+	cout << "Archivates " <<tbl.GetStat()->GetArcStat() << endl;
 	while(true){
 		cout << '>' ;
 		string q;
