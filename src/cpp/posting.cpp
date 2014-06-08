@@ -13,7 +13,8 @@ PostingList::~PostingList(){}
 void PostingList::Add(unsigned long docId, unsigned long ent){
 
 	_docId.push_back(docId);
-	_posts[docId] = ent;
+	if(ent)
+		_posts[docId] = ent;
 }
 
 void PostingList::Merge(unsigned long long pos, string fileName){
@@ -24,6 +25,8 @@ void PostingList::Merge(unsigned long long pos, string fileName){
 
 	delete newPosting;
 }
+
+
 void PostingList::Merge(PostingList *secondPost){
 	map<unsigned long ,unsigned long >::iterator iter = secondPost->_posts.begin();
 
@@ -32,6 +35,7 @@ void PostingList::Merge(PostingList *secondPost){
 		_docId.push_back(iter->first);
 	}
 }
+
 
 unsigned long long PostingList::Dump(string fileName){
 	_fw.OpenWrite(fileName, true);
@@ -74,9 +78,12 @@ unsigned long long PostingList::Dump(string fileName){
 	return pos;
 }
 
+
 unsigned long PostingList::Length(){
 		return _docId.size();
 }
+
+
 unsigned long PostingList::LengthEnt(unsigned long docId){
 	return _posts[docId];
 }
@@ -86,6 +93,7 @@ void PostingList::Load(unsigned long long pos, string fName){
 	Load(pos);
 	_fw.CloseRead();
 }
+
 void PostingList::Load(unsigned long long pos){
 	string data = _fw.ReadIdxLine(pos);
 
@@ -109,11 +117,13 @@ void PostingList::Load(unsigned long long pos){
 				break;
 		}
 		_posts[docId] = entrance;
-		_docId.push_back(entrance);
+		_docId.push_back(docId);
 	}
 
 	delete rawPost;
 }
+
+
 bool PostingList::IsExist(unsigned long docId){
 
 	if(_posts.end() ==  _posts.find(docId))

@@ -11,6 +11,7 @@ CPP_SRCS += \
 ../src/cpp/index.cpp \
 ../src/cpp/main.cpp \
 ../src/cpp/parser.cpp \
+../src/cpp/pipeworker.cpp \
 ../src/cpp/posting.cpp \
 ../src/cpp/query.cpp \
 ../src/cpp/ranking.cpp \
@@ -24,6 +25,7 @@ OBJS += \
 ./src/cpp/index.o \
 ./src/cpp/main.o \
 ./src/cpp/parser.o \
+./src/cpp/pipeworker.o \
 ./src/cpp/posting.o \
 ./src/cpp/query.o \
 ./src/cpp/ranking.o \
@@ -37,6 +39,7 @@ CPP_DEPS += \
 ./src/cpp/index.d \
 ./src/cpp/main.d \
 ./src/cpp/parser.d \
+./src/cpp/pipeworker.d \
 ./src/cpp/posting.d \
 ./src/cpp/query.d \
 ./src/cpp/ranking.d \
