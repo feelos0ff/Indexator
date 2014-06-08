@@ -83,6 +83,7 @@ void Statistics::Dump(string fileName){
 
 void Statistics::Load(string fileName){
 	FileWork fw;
+	fw.OpenRead(fileName);
 	///< toDo исправить на нормальную запись в файл
 	pair<string, unsigned long> data;
 
@@ -101,11 +102,13 @@ void Statistics::Load(string fileName){
 		_wordDict[data.first].second = data.second;
 		_wc += data.second;
 	}
-	for(;txtLen; txtLen++){
+	_txtDict.resize(txtLen + 1);
+	for(;txtLen; txtLen--){
 		data =fw.ReadLine();
 		_txtDict[Parser::STUI(data.first)] = data.second;
 	}
 	Commit();
+	fw.CloseRead();
 }
 
 pair<string, unsigned long> Statistics::GetWord(unsigned long num){

@@ -14,7 +14,7 @@ int main()
 	}
 
 	Index idx;
-	idx.CreateIndex(1, 0);
+	idx.CreateIndex(1, 200);
 	IndexTable tbl;
 	time_t st = time(NULL);
 	tbl.LoadIndex("index.dict");
