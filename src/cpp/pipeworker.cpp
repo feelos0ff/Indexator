@@ -42,6 +42,10 @@ void PipeWork::WriteQuery ( PostingList *p, vector<string> &words ) {
     res = "[[";
     int len = words.size();
 
+    if(!len)
+    	words.push_back("asdasfads");
+
+
     for ( int i = 0; i < len; ++i ) {
         if ( i )
             res += ',';
