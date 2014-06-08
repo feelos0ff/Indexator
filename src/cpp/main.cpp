@@ -54,8 +54,8 @@ int main ( int argc, char *argv[] ) {
 
         else
             cout << 0 << endl;
-
-        delete p;
+        if(p)
+        	delete p;
     }
 
     return 0;

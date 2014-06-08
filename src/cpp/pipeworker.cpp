@@ -50,18 +50,21 @@ void PipeWork::WriteQuery ( PostingList *p, vector<string> &words ) {
     }
 
     res += "]";
-
-    list<unsigned long> *docId = p->GetPostingList();
-    list<unsigned long>::iterator iter = docId->begin();
-
-    for ( ; iter != docId->end(); iter++ ) {
-        res += ',';
-        res += Parser::UITS ( *iter );
-        res += ",[-1]";
+    if(!p){
+    	res = "empty";
     }
+    else{
+		list<unsigned long> *docId = p->GetPostingList();
+		list<unsigned long>::iterator iter = docId->begin();
 
-    res += ']';
+		for ( ; iter != docId->end(); iter++ ) {
+			res += ',';
+			res += Parser::UITS ( *iter );
+			res += ",[-1]";
+		}
 
+		res += ']';
+    }
     int fd = 0;
     /* Discard old snippets */
     FILE* f = fopen ( OUTPUT_NAME, "w" );
