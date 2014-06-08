@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <locale>
+#include <time.h>
 #include <locale.h>
 #include <string>
 #include <string.h>

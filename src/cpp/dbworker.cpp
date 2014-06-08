@@ -78,3 +78,17 @@ void DBWorker::SetPrepText(vector<string>& txt, unsigned int num){
 
 	PQexec(_conn, query.c_str()) ;
 }
+
+
+unsigned long DBWorker::GetMaxId(){
+	PGresult   *res;
+	unsigned long result;
+
+
+	res = PQexec(_conn, "select max(id) from news;");
+
+	result = Parser::STUI(PQgetvalue(res, 0, 0));
+
+	PQclear(res);
+	return result;
+}

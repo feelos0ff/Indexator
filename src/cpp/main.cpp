@@ -16,8 +16,12 @@ int main()
 	Index idx;
 	idx.CreateIndex(1, 0);
 	IndexTable tbl;
+	time_t st = time(NULL);
 	tbl.LoadIndex("index.dict");
-	cout << "Archivates " <<tbl.GetStat()->GetArcStat() << endl;
+
+	cout << "Archivates: " <<tbl.GetStat()->GetArcStat() << endl;
+	cout << "Load Time: " << (time(NULL) - st)  << endl;
+
 	while(true){
 		cout << '>' ;
 		string q;

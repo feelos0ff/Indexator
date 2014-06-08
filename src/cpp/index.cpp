@@ -3,24 +3,46 @@
 using namespace std;
 
 void Index::CreateIndex(int stIdx, int endIdx){
-    int len = _db.GetCountTxt();
+    unsigned long len = _db.GetMaxId();
+    time_t st = time(NULL);
+    time_t beg = st;
 
     if(!endIdx)
     	endIdx = len;
 
-    for(int i = stIdx; i < endIdx; i += _maxCountOfText)
-        AddToIndex(i, min(i + _maxCountOfText, endIdx));
+    for(int i = stIdx; i < endIdx; i += _maxCountOfText){
+    	cout  << i << "/" << endIdx << ' ';
+    	AddToIndex(i, min(i + _maxCountOfText, endIdx));
+    	cout << (time(NULL) - beg) << endl;
+    	beg = time(NULL);
+    }
 
+    cout << "sort" << endl;
     system("iconv -f cp1251 -t utf-8 *.dict |  "
     	   "sort -t \' \' -k 2.1 -n | "
     	   "sort -t \' \' -k 1.1,1 -s  | "
     	   "iconv -f utf-8 -t cp1251 > dict.dict");
     system("rm *_tmp.dict");
+    cout << (time(NULL) - beg) << endl;
+    beg = time(NULL);
 
+    cout << "merge" << endl;
     Merge("dict.dict");
+    cout << (time(NULL) - beg) << endl;
+    beg = time(NULL);
 
+    cout << "commit statistics" << endl;
     _stat.Commit();
+
+    cout << (time(NULL) - beg) << endl;
+    beg = time(NULL);
+
+    cout << "dump statistics" << endl;
     _stat.Dump("index.stat");
+    cout << (time(NULL) - beg)  << endl;
+    beg = time(NULL);
+
+    cout << "Full: " << (time(NULL) - st) << endl;
 }
 
 

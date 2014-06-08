@@ -25,6 +25,8 @@ public:
     string GetPrepText(unsigned int);
     string GetMetaData(unsigned int);
 
+    unsigned long GetMaxId();
+
     unsigned long GetCountTxt();				///< количество текстов
 
     void SetPrepText(vector<string>&, unsigned int);
