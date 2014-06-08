@@ -140,3 +140,7 @@ PostingList* IndexTable::FindPos(string word){
 
 	return res;
 }
+
+Statistics* IndexTable::GetStat(){
+	return &_stat;
+}

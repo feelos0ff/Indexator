@@ -6,7 +6,7 @@
  */
 #include "../headers/posting.h"
 
-PostingList::PostingList(Statistics *st){_st=st}
+PostingList::PostingList(Statistics *st){_st=st;}
 
 PostingList::~PostingList(){}
 

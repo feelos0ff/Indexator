@@ -67,7 +67,6 @@ void Statistics::Dump(string fileName){
 	fw.OpenWrite(fileName);
 
 	WordIter wordIter = _wordDict.begin();
-	map <unsigned long, unsigned long>::iterator txtIter = _txtDict.begin();
 
 	///< toDo исправить на нормальную запись в файл
 	fw.WriteLine(Parser::UITS(_byteInArc), _numsInArc);
@@ -76,8 +75,8 @@ void Statistics::Dump(string fileName){
 	for(;wordIter != _wordDict.end(); wordIter++)
 		fw.WriteLine(wordIter->first, wordIter->second.second);
 
-	for(;txtIter != _txtDict.end(); txtIter++)
-		fw.WriteLine(Parser::UITS(txtIter->first), txtIter->second);
+	for(unsigned int i = 0; i< _txtDict.size(); i++)
+		fw.WriteLine(Parser::UITS(i), _txtDict[i]);
 
 	fw.CloseWrite();
 }
@@ -116,6 +115,10 @@ pair<string, unsigned long> Statistics::GetWord(unsigned long num){
 	result.second = _wordAccess[num]->second.second;
 
 	return result;
+}
+
+unsigned long Statistics::GetWord(string word){
+	return _wordDict[word].first;
 }
 
 bool Statistics::IsStopWord(unsigned long num){

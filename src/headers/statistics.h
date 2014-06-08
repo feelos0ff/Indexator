@@ -46,6 +46,7 @@ public:
 
 	pair<string, unsigned long> GetWord(unsigned long);		///< по заданному номеру слова получить слово и кол-во вхождений
 
+	unsigned long GetWord(string);				///< по заданному слову получить номер слова
 	unsigned long WordCount();					///< количество слов
 
 	bool IsStopWord(string);					///< проверка на то, является ли стоп-словом
