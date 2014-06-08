@@ -20,6 +20,8 @@ public:
     void CloseRead();
     void CloseWrite();
 
+    string GetLine();
+
     void WriteLine ( string, unsigned long long );
     pair<string, unsigned long long> ReadLine();
 

@@ -10,7 +10,7 @@ void Index::CreateIndex ( int stIdx, int endIdx ) {
     if ( !endIdx )
         endIdx = len;
 
-    for ( int i = stIdx; i < endIdx; i += _maxCountOfText ) {
+    for ( int i = stIdx; i <= endIdx; i += _maxCountOfText ) {
         cout  << i << "/" << endIdx << ' ';
         AddToIndex ( i, min ( i + _maxCountOfText, endIdx ) );
         cout << ( time ( NULL ) - beg ) << endl;

@@ -15,7 +15,8 @@ CPP_SRCS += \
 ../src/cpp/posting.cpp \
 ../src/cpp/query.cpp \
 ../src/cpp/ranking.cpp \
-../src/cpp/statistics.cpp 
+../src/cpp/statistics.cpp \
+../src/cpp/synonims.cpp 
 
 OBJS += \
 ./src/cpp/archivate.o \
@@ -29,7 +30,8 @@ OBJS += \
 ./src/cpp/posting.o \
 ./src/cpp/query.o \
 ./src/cpp/ranking.o \
-./src/cpp/statistics.o 
+./src/cpp/statistics.o \
+./src/cpp/synonims.o 
 
 CPP_DEPS += \
 ./src/cpp/archivate.d \
@@ -43,7 +45,8 @@ CPP_DEPS += \
 ./src/cpp/posting.d \
 ./src/cpp/query.d \
 ./src/cpp/ranking.d \
-./src/cpp/statistics.d 
+./src/cpp/statistics.d \
+./src/cpp/synonims.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

@@ -17,6 +17,7 @@ public:
     static string UITS ( unsigned long );
     static unsigned long STUI ( string );
 
+    static vector<string> ParseSyn(string);
 };
 
 #endif // PARSER_H

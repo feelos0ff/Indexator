@@ -12,6 +12,7 @@ void FileWork::OpenRead ( string fileName ) {
     _fin.open ( fileName.c_str(), ios::binary );
 }
 
+
 void FileWork::OpenWrite ( string fileName, bool append ) {
     if ( append )
         _fout.open ( fileName.c_str(), ios::app | ios::binary );
@@ -20,6 +21,7 @@ void FileWork::OpenWrite ( string fileName, bool append ) {
         _fout.open ( fileName.c_str(), ios::binary );
 }
 
+
 bool FileWork::IsEOF() {
     if ( _fin )
         return false;
@@ -27,25 +29,32 @@ bool FileWork::IsEOF() {
     return true;
 }
 
+
 unsigned long long FileWork::GetPos() {
     return _fout.tellp();
 }
+
 
 void FileWork::SetPos ( unsigned long long pos ) {
     _fin.seekg ( pos );
 }
 
+
 void FileWork::CloseRead() {
     _fin.close();
 }
+
+
 void FileWork::CloseWrite() {
     _fout.close();
 }
+
 
 void FileWork::WriteLine ( string word, unsigned long long num ) {
 
     _fout << word << ' ' << num << endl;
 }
+
 
 pair<string, unsigned long long> FileWork::ReadLine() {
     pair<string, unsigned long long> result;
@@ -53,12 +62,15 @@ pair<string, unsigned long long> FileWork::ReadLine() {
     return result;
 }
 
+
 void FileWork::WriteIdxLine ( string &data ) {
     int len = data.length();
 
     _fout.write ( ( char* ) &len, sizeof ( int ) );
     _fout.write ( data.c_str(), len );
 }
+
+
 string FileWork::ReadIdxLine ( unsigned long long pos ) {
     string result;
     int len = 0;
@@ -82,3 +94,8 @@ string FileWork::ReadIdxLine ( unsigned long long pos ) {
 }
 
 
+string FileWork::GetLine(){
+	string res;
+	getline(_fin, res);
+	return res;
+}
