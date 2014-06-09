@@ -89,7 +89,10 @@ unsigned long PostingList::Length() {
 
 
 unsigned long PostingList::LengthEnt ( unsigned long docId ) {
-    return _posts[docId];
+	map<unsigned long, unsigned long>::iterator iter = _posts.find(docId);
+    if(iter == _posts.end())
+    	return 0;
+	return iter->second;
 }
 
 void PostingList::Load ( unsigned long long pos, string fName ) {

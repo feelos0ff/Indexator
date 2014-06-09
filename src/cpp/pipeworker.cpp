@@ -17,7 +17,7 @@ string PipeWork::ReadQuery() {
 
     int fd = 0;
 
-    /* Read input JSON */
+    /* Read input  */
     if ( ( fd = open ( INPUT_NAME, O_RDONLY ) ) <= 0 ) {
         perror ( "open" );
         return "";

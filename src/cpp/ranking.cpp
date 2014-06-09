@@ -57,9 +57,9 @@ PostingList* Ranking::CuttingList(vector<string> &query, IndexTable *idx)
                             {
                                 rank[docId].first += W;                         // добавить вес в нужный вектор
                             }
-                            delete pl;
                         }
                     }
+                 //   delete pl;
                 }
             }
         }

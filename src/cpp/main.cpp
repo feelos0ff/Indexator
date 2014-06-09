@@ -7,7 +7,7 @@ using namespace std;
 
 int main ( int argc, char *argv[] ) {
 
-    if ( ! setlocale ( LC_CTYPE , "ru_RU.cp1251" ) ) {
+	if ( ! setlocale ( LC_CTYPE , "ru_RU.cp1251" ) ) {
         cout << "locale problems" << endl;
         exit ( 0 );
     }
@@ -46,8 +46,7 @@ int main ( int argc, char *argv[] ) {
     PipeWork pipe;
 
     while ( true ) {
-
-        PostingList *p = query.ExecQuery ( pipe.ReadQuery() );
+        PostingList *p = query.ExecQuery ( pipe.ReadQuery());
 
         if ( p )
             cout << p->Length() << endl;
