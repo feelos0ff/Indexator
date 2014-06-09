@@ -24,7 +24,7 @@ int main ( int argc, char *argv[] ) {
 
     if ( !argc || string ( argv[1] ) == "-i" ) {
 
-        idx.CreateIndex ( 1, 0 );
+        idx.CreateIndex ( 1, 400 );
         return 0;
     }
 
@@ -46,6 +46,7 @@ int main ( int argc, char *argv[] ) {
     PipeWork pipe;
 
     while ( true ) {
+
         PostingList *p = query.ExecQuery ( pipe.ReadQuery());
 
         if ( p )
