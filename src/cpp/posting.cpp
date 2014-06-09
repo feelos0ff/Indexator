@@ -70,7 +70,6 @@ unsigned long long PostingList::Dump ( string fileName ) {
         }
     }
 
-
     string results = Archivate::Decode ( dataForArchivate );
 
     if ( _st )
@@ -121,11 +120,10 @@ void PostingList::Load ( unsigned long long pos ) {
 
             case 1:
                 entrance = *iter;
+            	_posts[docId] = entrance;
+            	_docId.push_back ( docId );
                 break;
         }
-
-        _posts[docId] = entrance;
-        _docId.push_back ( docId );
     }
 
     delete rawPost;

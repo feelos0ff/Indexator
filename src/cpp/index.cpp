@@ -123,8 +123,9 @@ void Index::Merge ( string fileName ) {
 
         else {
             if ( currentLine.first != "" ) {
-                _fw.WriteLine ( currentLine.first, pos );
-                pos = currentPosts.Dump ( "index.idx" );
+            	pos = currentPosts.Dump ( "index.idx" );
+            	_fw.WriteLine ( currentLine.first, pos );
+
             }
 
             currentLine = targetLine;
@@ -133,8 +134,9 @@ void Index::Merge ( string fileName ) {
     }
 
     if ( currentLine.first != "" ) {
-        _fw.WriteLine ( currentLine.first, pos );
-        pos = currentPosts.Dump ( "index.idx" );
+    	 pos = currentPosts.Dump ( "index.idx" );
+    	_fw.WriteLine ( currentLine.first, pos );
+
     }
 
     _fw.CloseRead();
