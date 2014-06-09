@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-USER_OBJS := /home/feelosoff/workspace/index/src/lib/libstemka.a
+USER_OBJS := ../src/lib/libstemka.a
 
 LIBS := -lpq
 

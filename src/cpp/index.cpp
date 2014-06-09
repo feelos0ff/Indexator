@@ -22,7 +22,7 @@ void Index::CreateIndex ( int stIdx, int endIdx ) {
              "sort -t \' \' -k 2.1 -n | "
              "sort -t \' \' -k 1.1,1 -s  | "
              "iconv -f utf-8 -t cp1251 > dict.dict" );
-    system ( "rm *_tmp.dict" );
+// system ( "rm *_tmp.dict" );
     cout << ( time ( NULL ) - beg ) << endl;
     beg = time ( NULL );
 
@@ -140,7 +140,7 @@ void Index::Merge ( string fileName ) {
     _fw.CloseRead();
     _fw.CloseWrite();
 
-    system ( "rm index_tmp.idx dict.dict" );
+ //   system ( "rm index_tmp.idx dict.dict" );
 }
 
 

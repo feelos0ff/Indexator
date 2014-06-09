@@ -15,12 +15,12 @@ list<unsigned long long>* Archivate::Encode ( string &data ) {
 
     for ( int i = 0; i < len; ++i ) {
         if ( ( ( unsigned char ) data[i] ) > 0x7f ) {
-            val += data[i] & 0x7f;
+            val += ( (unsigned char )data[i]) & 0x7f;
             val = val << 7;
         }
 
         else {
-            res->push_back ( data[i] + val );
+            res->push_back ( ( unsigned char ) data[i] + val );
             val = 0;
         }
     }
