@@ -109,11 +109,12 @@ unsigned long Parser::STUI ( string num ) {
 }
 
 vector<string> Parser::ParseSyn(string line){
-	vector<string> res;
+	vector<string> res, tmp;
+
 	long beg = 0, end = 0;
 	end = line.find('|');
 	while(beg >= 0 && beg < line.length()){
-		vector<string> tmp = Parser::NormalizeText(line.substr(beg, end));
+		tmp = Parser::NormalizeText(line.substr(beg, end));
 
 		if(tmp.size() == 1)
 			res.push_back(tmp[0]);
@@ -121,6 +122,10 @@ vector<string> Parser::ParseSyn(string line){
 		beg = end + 1;
 		end = line.find(',', beg);
 	}
+	tmp = Parser::NormalizeText(line.substr(beg, line.length()));
+	if(tmp.size() == 1)
+		res.push_back(tmp[0]);
+
 	return res;
 }
 

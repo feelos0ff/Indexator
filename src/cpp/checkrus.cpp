@@ -94,6 +94,7 @@ unsigned char toLoCaseMatrix1251[256] = {
 char*  DrawStem ( const char* lpsz ) {
     stemScan  stscan = { fuzzyTab, toLoCaseMatrix1251, vowels, ( unsigned ) - 1 };
     unsigned  buffer[5];
+    printf("%s\n", vowels);
     int       length = strlen ( lpsz );
     int       lcount = GetStemLenBuffer ( &stscan, buffer, 5, lpsz, length );
     char*     result = ( char* ) malloc ( 256 );

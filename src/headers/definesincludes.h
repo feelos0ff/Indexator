@@ -5,6 +5,7 @@
 #include <map>
 #include <cmath>
 #include <iostream>
+#include <iconv.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>

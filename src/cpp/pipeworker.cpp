@@ -7,6 +7,30 @@
 
 #include "../headers/pipework.h"
 
+string Convert(const std::string& str, iconv_t conv){
+    iconv(conv, 0, 0, 0, 0);
+
+    const size_t buffer_size = 2048;
+    char out[buffer_size];
+
+    char* in_buf = (char*)str.c_str();
+    size_t in_size = str.size();
+
+    std::string result;
+
+    while (in_size > 0){
+
+        char* out_buf = out;
+        size_t out_size = buffer_size;
+
+        int n = iconv(conv, &in_buf, &in_size, &out_buf, &out_size);
+        if (n < 0){
+            break;
+        }
+        result.append(out, buffer_size - out_size);
+    }
+}
+
 string PipeWork::ReadQuery() {
     if ( mkfifo ( INPUT_NAME, 0777 ) ) {
         perror ( "mkfifo" );
@@ -32,8 +56,9 @@ string PipeWork::ReadQuery() {
     close ( fd );
 
     remove ( INPUT_NAME );
+	iconv_t conv = iconv_open("CP1251","UTF-8");
 
-    return string ( _buf );
+    return  Convert( _buf , conv);
 }
 
 void PipeWork::WriteQuery ( PostingList *p, vector<string> &words ) {
