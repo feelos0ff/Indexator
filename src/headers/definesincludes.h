@@ -22,7 +22,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #define INPUT_NAME "web_request"
-#define OUTPUT_NAME "json_input"
+#define OUTPUT_NAME "json_output"
 #define BUFSIZE        1000000
 
 using namespace std;
